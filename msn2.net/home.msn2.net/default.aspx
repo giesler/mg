@@ -45,9 +45,9 @@
                         &nbsp;
                     </td>
                     <td>
-                        <asp:Label ID="outsideHigh" CssClass="hiTemp" runat="server" /><asp:Label ID="outsideHighDecimal" runat="server" Font-Size="XX-Small" />
+                        <asp:Label ID="outsideHigh" CssClass="hiTemp" runat="server" />
                         <br />
-                        <asp:Label ID="outsideLow" CssClass="loTemp" runat="server" /><asp:Label ID="outsideLowDecimal" runat="server" Font-Size="XX-Small" />
+                        <asp:Label ID="outsideLow" CssClass="loTemp" runat="server" />
                     </td>
                 </tr>
             </table>

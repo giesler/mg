@@ -73,11 +73,9 @@ public partial class _Default : System.Web.UI.Page
 
         float outsideMaxF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MaxTemp);
         this.outsideHigh.Text = ((int)outsideMaxF).ToString("0");
-        this.outsideHighDecimal.Text = (outsideMaxF % 1.0 * 10.0).ToString("0");
 
         float outsideMinF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MinTemp);
         this.outsideLow.Text = ((int)outsideMinF).ToString("0");
-        this.outsideLowDecimal.Text = (outsideMinF % 1.0 * 10.0).ToString("0");
         //this.outsideHumidity.Text = outside.DashboardData.Humidity.ToString();
 
         float insideF = NetatmoIntegration.GetFahrenheit(deviceData.DashboardData.Temperature);
@@ -104,7 +102,7 @@ public partial class _Default : System.Web.UI.Page
         this.day0hi.Text = day0.High.ToString();
         this.day0low.Text = day0.Low.ToString();
         this.day0pop.Text = day0.PercentagePrecip.ToString() + "%";
-        this.day0precip.Text = day0.QuantityPercip.ToString() + "\"";
+        this.day0precip.Text = Precip(day0.QuantityPercip) + "\"";
 
         day = NextDay(day);
 
@@ -114,7 +112,7 @@ public partial class _Default : System.Web.UI.Page
         this.day1hi.Text = day1.High.ToString();
         this.day1low.Text = day1.Low.ToString();
         this.day1pop.Text = day1.PercentagePrecip.ToString() + "%";
-        this.day1precip.Text = day1.QuantityPercip.ToString() + "\"";
+        this.day1precip.Text = Precip(day1.QuantityPercip) + "\"";
 
         day = NextDay(day);
 
@@ -124,7 +122,7 @@ public partial class _Default : System.Web.UI.Page
         this.day2hi.Text = day2.High.ToString();
         this.day2low.Text = day2.Low.ToString();
         this.day2pop.Text = day2.PercentagePrecip.ToString() + "%";
-        this.day2precip.Text = day2.QuantityPercip.ToString() + "\"";
+        this.day2precip.Text = Precip(day2.QuantityPercip) + "\"";
         this.day2Label.Text = day2.Title.ToLower();
 
         var randleDay0 = DayOfWeek.Saturday;
@@ -154,7 +152,7 @@ public partial class _Default : System.Web.UI.Page
         this.randleDay0Hi.Text = rDay0.High.ToString();
         this.randleDay0Low.Text = rDay0.Low.ToString();
         this.randleDay0pop.Text = rDay0.PercentagePrecip.ToString() + "%";
-        this.randleDay0precip.Text = rDay0.QuantityPercip.ToString() + "\"";
+        this.randleDay0precip.Text = Precip(rDay0.QuantityPercip) + "\"";
         this.randleDay0Name.Text = isWeekend ? "today" : rDay0.Title.ToLower();
 
         var rDay1 = randleData.GetForecast(randleDay1);
@@ -163,9 +161,21 @@ public partial class _Default : System.Web.UI.Page
         this.randleDay1Hi.Text = rDay1.High.ToString();
         this.randleDay1Low.Text = rDay1.Low.ToString();
         this.randleDay1pop.Text = rDay1.PercentagePrecip.ToString() + "%";
-        this.randleDay1precip.Text = rDay1.QuantityPercip.ToString() + "\"";
+        this.randleDay1precip.Text = Precip(rDay1.QuantityPercip) + "\"";
         this.randleDay1Name.Text = rDay1.Title.ToLower();
 
+    }
+
+    string Precip(decimal val)
+    {
+        if ((double)val < 0.01d)
+        {
+            return "0";
+        }
+        else
+        {
+            return val.ToString();
+        }
     }
 
     DayOfWeek NextDay(DayOfWeek current)
