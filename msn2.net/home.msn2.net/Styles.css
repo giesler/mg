@@ -182,13 +182,20 @@ a:visited {
     border-spacing: 0px;
 }
 .loTemp {
-    color: darkblue
+    color: darkblue;
 }
 .hiTemp {
-    color: darkred
+    color: darkred;
 }
 .buttonDiv {
     float: right; 
     margin-top: 10px; 
     margin-right: 10px;
+}
+.precip {
+    font-size: x-small;
+    margin: 2px;
+}
+.icon {
+    padding: 2px;
 }

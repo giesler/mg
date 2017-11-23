@@ -94,7 +94,7 @@
                         </tr>
                         <tr>
                             <td style="width: 110px">
-                                <asp:Image runat="server" ID="day0icon" ImageAlign="Left" />
+                                <asp:Image runat="server" ID="day0icon" ImageAlign="Left" CssClass="icon" />
                                 <asp:Label runat="server" ID="day0hi" CssClass="hiTemp" />
                                 /
 									<asp:Label runat="server" ID="day0low" CssClass="loTemp" />
@@ -104,7 +104,7 @@
                                 </div>
                             </td>
                             <td style="width: 110px">
-                                <asp:Image runat="server" ID="day1icon" ImageAlign="Left" />
+                                <asp:Image runat="server" ID="day1icon" ImageAlign="Left" CssClass="icon" />
                                 <asp:Label runat="server" ID="day1hi" CssClass="hiTemp" />
                                 /
 									<asp:Label runat="server" ID="day1low" CssClass="loTemp" />
@@ -114,7 +114,7 @@
                                 </div>
                             </td>
                             <td style="width: 110px">
-                                <asp:Image runat="server" ID="day2icon" ImageAlign="Left" />
+                                <asp:Image runat="server" ID="day2icon" ImageAlign="Left" CssClass="icon" />
                                 <asp:Label runat="server" ID="day2hi" CssClass="hiTemp" />
                                 /
 									<asp:Label runat="server" ID="day2low" CssClass="loTemp" />
@@ -145,23 +145,23 @@
                                 <asp:Label runat="server" ID="randleDay1Name" /></td>
                         </tr>
                         <tr>
-                            <td style="width: 100px">
-                                <asp:Image runat="server" ID="randleDay0Icon" ImageAlign="Left" />
+                            <td style="width: 110px">
+                                <asp:Image runat="server" ID="randleDay0Icon" ImageAlign="Left" CssClass="icon" />
                                 <asp:Label runat="server" ID="randleDay0Hi" CssClass="hiTemp" />
                                 /
 									<asp:Label runat="server" ID="randleDay0Low" CssClass="loTemp" />
                                 <br />
-                                <div style="font-size: x-small">
+                                <div class="precip">
                                     <asp:Label runat="server" ID="randleDay0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay0precip" />
                                 </div>
                             </td>
-                            <td style="width: 100px">
-                                <asp:Image runat="server" ID="randleDay1Icon" ImageAlign="Left" />
+                            <td style="width: 110px">
+                                <asp:Image runat="server" ID="randleDay1Icon" ImageAlign="Left" CssClass="icon" />
                                 <asp:Label runat="server" ID="randleDay1Hi" CssClass="hiTemp" />
                                 /
 									<asp:Label runat="server" ID="randleDay1Low" CssClass="loTemp" />
                                 <br />
-                                <div style="font-size: x-small">
+                                <div class="precip">
                                     <asp:Label runat="server" ID="randleDay1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay1precip" />
                                 </div>
                             </td>
