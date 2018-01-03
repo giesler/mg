@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
@@ -32,6 +33,9 @@
         <a class="smallthumb" href="http://cams.msn2.net/?c=CoopDoor" target="_top">
             <img class="smallthumb" src="http://cam3.msn2.net:8808/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px;" /></a>
     </div>
+    <asp:Panel runat="server" ID="errorPanel" Visible="false" Width="100%" ForeColor="DarkRed" >
+        <asp:Label runat="server" ID="error" />
+        </asp:Panel>
     <div style="float: left">
         <div style="float: left;">
             <table style="padding: 2px">
