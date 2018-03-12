@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "control.msn2.net", "http://localhost:3340", "{37504C27-BE71-466E-812F-2ABE969CAA2D}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -10,7 +10,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "control.msn2.net", "http://
 		SccLocalPath = "SAK"
 		SccProvider = "SAK"
 		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_3340"
 		Debug.AspNetCompiler.PhysicalPath = "..\control.msn2.net\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3340\"
@@ -62,20 +62,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://giesler.visualstudio.com/
-		SccWebProject0 = true
-		SccProjectUniqueName0 = http://localhost:3340
-		SccLocalPath0 = .
-		SccProjectEnlistmentChoice0 = 2
-		SccProjectUniqueName1 = ..\\WakeOnLan\\HomeServices\\HomeServices.csproj
-		SccProjectName1 = ../WakeOnLan/HomeServices
-		SccLocalPath1 = ..\\WakeOnLan\\HomeServices
-		SccProjectUniqueName2 = ..\\HomeControl\\HomeControl\\HomeControl.csproj
-		SccProjectName2 = ../HomeControl/HomeControl
-		SccLocalPath2 = ..\\HomeControl\\HomeControl
-		SccLocalPath3 = .
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62CB2786-1E6E-4E8C-B058-8AD8F7C51CD4}
 	EndGlobalSection
 EndGlobal
