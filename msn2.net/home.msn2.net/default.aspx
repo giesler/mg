@@ -10,29 +10,29 @@
     <meta http-equiv="refresh" content="1500" />
     <meta name="viewport" content="width=device-width" />
     <link href="Styles.css" rel="stylesheet" type="text/css" />
-    <title>MSN2 Home</title>
+    <title>MS2N Home</title>
     <link rel="SHORTCUT ICON" href="favicon.ico" />
 </head>
 
 <body class="bodyStyle" style="color: black">
 
     <div class="headerLink" style="padding: 4px">
-        <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net" style="color:deepskyblue">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
+        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="http://home.ms2n.net" style="color:deepskyblue">home</a> | <a href="http://cams.ms2n.net/">cams</a> |  <a href="http://control.ms2n.net/">control</a>
     </div>
     <div style="width: 100%; clear: both; background-color: black">
-        <a class="smallthumb" href="http://cams.msn2.net/?c=dw1" target="_top">
-            <img class="smallthumb" src="http://cam4.msn2.net:8808/getimg.aspx?c=dw1&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=front" target="_top">
-            <img class="smallthumb" src="http://cam5.msn2.net:8808/getimg.aspx?c=front&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=side" target="_top">
-            <img class="smallthumb" src="http://cam6.msn2.net:8808/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=gdoor" target="_top">
-            <img class="smallthumb" src="http://cam1.msn2.net:8808/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=CoopTop" target="_top">
-            <img class="smallthumb" src="http://cam2.msn2.net:8808/getimg.aspx?c=CoopTop&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=CoopDoor" target="_top">
-            <img class="smallthumb" src="http://cam3.msn2.net:8808/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-    </div>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=dw1" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=dw1&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=front" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=front&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=side" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=gdoor" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopTop" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopTop&amp;h=64&amp;id=th" style="height: 64px; width: 102px" /></a>
+<!--        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopDoor" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px; width: 113px" /></a>
+-->    </div>
     <asp:Panel runat="server" ID="errorPanel" Visible="false" Width="100%" ForeColor="DarkRed" >
         <asp:Label runat="server" ID="error" />
         </asp:Panel>
