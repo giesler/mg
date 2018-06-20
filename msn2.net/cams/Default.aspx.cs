@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,10 +16,13 @@ public partial class _Default : System.Web.UI.Page
     {
         base.OnInit(e);
 
-        HttpCookie cookie = Request.Cookies["Login"];
-        if (cookie == null || cookie.Value != "1")
+        if (!Debugger.IsAttached)
         {
-            Response.Redirect("http://login.msn2.net/?r=http://cams.msn2.net");
+            HttpCookie cookie = Request.Cookies["Login"];
+            if (cookie == null || cookie.Value != "1")
+            {
+                Response.Redirect("http://login.ms2n.net/?r=http://cams.ms2n.net");
+            }
         }
 
         bool mobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
@@ -51,7 +55,7 @@ public partial class _Default : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
-        this.main.ImageUrl = string.Format("http://cam1.msn2.net:8808/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
+//        this.main.ImageUrl = string.Format("http://cam1.msn2.net:8808/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
     }
 
     protected string GetCam()

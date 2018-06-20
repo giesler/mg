@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>MSN2 Cams</title>
+    <title>MS2N Cams</title>
     <link href="Styles.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" /> 
     <link rel="SHORTCUT ICON" href="favicon.ico" />
@@ -19,9 +19,9 @@
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
-        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="http://home.msn2.net/" Visible="false" Text="home" />
+        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="http://home.ms2n.net/" Visible="false" Text="home" />
         <asp:Label runat="server" ID="logLinkSeperator0" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="http://control.msn2.net/" Text="control" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="http://control.ms2n.net/" Text="control" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="log" Visible="false" /> 
     </asp:Panel>
@@ -31,9 +31,9 @@
         </asp:Panel>
     </div>
     <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
-        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="http://home.msn2.net/" Visible="false" Text="home" />
+        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="http://home.ms2n.net/" Visible="false" Text="home" />
         <asp:Label runat="server" ID="logLinkSeperator5" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="http://control.msn2.net/" Text="control" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="http://control.ms2n.net/" Text="control" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="log" Visible="false" /> 
     </asp:Panel>
