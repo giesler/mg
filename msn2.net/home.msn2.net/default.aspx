@@ -88,7 +88,7 @@
                 <td>
                     <table>
                         <tr>
-                            <td colspan="3" style="border-bottom: 1px solid black"><a href="https://www.wunderground.com/forecast/us/wa/kirkland" target="_blank">kirkland forecast</a></td>
+                            <td colspan="3" style="border-bottom: 1px solid black"><a href="https://www.wunderground.com/weather/us/wa/bellevue/KWABELLE229" target="_blank">bellevue forecast</a></td>
                         </tr>
                         <tr>
                             <td>today</td>
@@ -213,7 +213,7 @@
 				<a href="http://en.wikipedia.org/wiki/Main_Page" target="_blank">Wikipedia</a> | 
 				<a href="http://www.yahoo.com/" target="_blank">Yahoo</a><br />
             <div class="subheader">weather</div>
-            <a href="http://www.wunderground.com/US/WA/Kirkland.html" target="_blank">WUnder</a> |
+            <a href="https://www.wunderground.com/weather/us/wa/bellevue/KWABELLE229" target="_blank">WUnder</a> |
 				<a href="http://www.wunderground.com/wundermap/?lat=47.68687057&lon=-122.18956757&zoom=8&pin=Kirkland%2c%20WA&rad=1&wxsn=0&svr=0&cams=0&sat=0&riv=0&mm=0&hur=0" target="_blank">Radar</a> |
 				<a href="http://www.accuweather.com/en/us/kirkland-wa/98033/minute-weather-forecast/341298" target="_blank">MinuteCast</a>
             <div class="subheader">food</div>
@@ -246,7 +246,7 @@
             <div class="subheader">local</div>
             <a href="http://seattlepi.nwsource.com/" target="_blank">PI</a> | 
 				<a href="http://www.seattletimes.com/" target="_blank">Times</a> |
-				<a href="http://www.kirklandreporter.com/" target="_blank">Kirkland</a>
+				<a href="http://www.bellevuereporter.com/" target="_blank">Bellevue</a>
             <div class="subheader">other</div>
             <a href="http://www.npr.org/" target="_blank">NPR</a> | 
 				<a href="http://www.newscientist.com/news/" target="_blank">New Scientist </a>|
@@ -277,13 +277,14 @@
         <br />
         <div class="subheader">government</div>
         <a href="http://www.kingcounty.gov/" target="_blank">King County</a> | 
+            <a href="https://www.bellevuewa.gov/" target="_blank">Bellevue</a> |
 				<a href="http://www.ci.kirkland.wa.us/" target="_blank">Kirkland</a>
         <br />
         <div class="subheader">environment</div>
         <a href="http://www.pscleanair.org/airq/status.aspx" target="_blank">Burning</a> | 
 				<a href="http://www.seattle.gov/util/EnvironmentConservation/OurWatersheds/index.htm" target="_blank">Water</a><br />
         <div class="subheader">food</div>
-        <a href="https://www.dinnerdeliveryplus.com/index.php?module=modRDS&op=restaurants" target="_blank">Dinner Delivery</a> | 
+        <a href="https://www.doordash.com/" target="_blank">Door Dash</a> | 
 				<a href="http://www.bitesquad.com/search/?search%5Baddress%5D=12627+NE+87th+Pl%2C+Kirkland%2C+WA%2C+United+States&search%5Bdistance%5D=5&search%5BstreetAddress%5D=12627+Northeast+87th+Place&search%5BunitNumber%5D=&search%5Bcity%5D=Kirkland&search%5Bstate%5D=Washington&search%5BzipCode%5D=98033-5966&search%5Blatitude%5D=47.680706&search%5Blongitude%5D=-122.17140240000003&search%5BmaxResults%5D=20&search%5BfirstResult%5D=0&search%5BorderTypes%5D=1" target="_blank">Bite Squad</a> | 
 				<a href="http://pagliacci.com/menu" target="_blank">Pagliacci</a>
         <br />
