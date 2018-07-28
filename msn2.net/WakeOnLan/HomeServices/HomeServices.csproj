@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HomeServices</RootNamespace>
     <AssemblyName>HomeServices</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -26,6 +26,7 @@
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -77,6 +78,7 @@
     <Content Include="getimg.aspx" />
     <Content Include="GetLogImage.aspx" />
     <Content Include="getvid.aspx" />
+    <Content Include="HS3DeviceControl.aspx" />
     <Content Include="ISY.svc" />
     <Content Include="Service References\CamData\HomeServices.CamData.LogItem.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -121,6 +123,13 @@
     </Compile>
     <Compile Include="getvid.aspx.designer.cs">
       <DependentUpon>getvid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HS3DeviceControl.aspx.cs">
+      <DependentUpon>HS3DeviceControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HS3DeviceControl.aspx.designer.cs">
+      <DependentUpon>HS3DeviceControl.aspx</DependentUpon>
     </Compile>
     <Compile Include="IDeviceControl.cs" />
     <Compile Include="IDevicePower.cs" />
@@ -190,7 +199,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3706</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
@@ -9,29 +10,32 @@
     <meta http-equiv="refresh" content="1500" />
     <meta name="viewport" content="width=device-width" />
     <link href="Styles.css" rel="stylesheet" type="text/css" />
-    <title>MSN2 Home</title>
+    <title>MS2N Home</title>
     <link rel="SHORTCUT ICON" href="favicon.ico" />
 </head>
 
 <body class="bodyStyle" style="color: black">
 
     <div class="headerLink" style="padding: 4px">
-        <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net" style="color:deepskyblue">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
+        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="http://home.ms2n.net" style="color:deepskyblue">home</a> | <a href="http://cams.ms2n.net/">cams</a> |  <a href="http://control.ms2n.net/">control</a>
     </div>
     <div style="width: 100%; clear: both; background-color: black">
-        <a class="smallthumb" href="http://cams.msn2.net/?c=dw1" target="_top">
-            <img class="smallthumb" src="http://cam4.msn2.net:8808/getimg.aspx?c=dw1&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=front" target="_top">
-            <img class="smallthumb" src="http://cam5.msn2.net:8808/getimg.aspx?c=front&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=side" target="_top">
-            <img class="smallthumb" src="http://cam6.msn2.net:8808/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=gdoor" target="_top">
-            <img class="smallthumb" src="http://cam1.msn2.net:8808/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=CoopTop" target="_top">
-            <img class="smallthumb" src="http://cam2.msn2.net:8808/getimg.aspx?c=CoopTop&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-        <a class="smallthumb" href="http://cams.msn2.net/?c=CoopDoor" target="_top">
-            <img class="smallthumb" src="http://cam3.msn2.net:8808/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px;" /></a>
-    </div>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=dw1" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=dw1&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=front" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=front&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=side" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=gdoor" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopTop" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopTop&amp;h=64&amp;id=th" style="height: 64px; width: 102px" /></a>
+<!--        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopDoor" target="_top">
+            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px; width: 113px" /></a>
+-->    </div>
+    <asp:Panel runat="server" ID="errorPanel" Visible="false" Width="100%" ForeColor="DarkRed" >
+        <asp:Label runat="server" ID="error" />
+        </asp:Panel>
     <div style="float: left">
         <div style="float: left;">
             <table style="padding: 2px">
@@ -84,7 +88,7 @@
                 <td>
                     <table>
                         <tr>
-                            <td colspan="3" style="border-bottom: 1px solid black"><a href="https://www.wunderground.com/forecast/us/wa/kirkland" target="_blank">kirkland forecast</a></td>
+                            <td colspan="3" style="border-bottom: 1px solid black"><a href="https://www.wunderground.com/weather/us/wa/bellevue/KWABELLE229" target="_blank">bellevue forecast</a></td>
                         </tr>
                         <tr>
                             <td>today</td>
@@ -209,7 +213,7 @@
 				<a href="http://en.wikipedia.org/wiki/Main_Page" target="_blank">Wikipedia</a> | 
 				<a href="http://www.yahoo.com/" target="_blank">Yahoo</a><br />
             <div class="subheader">weather</div>
-            <a href="http://www.wunderground.com/US/WA/Kirkland.html" target="_blank">WUnder</a> |
+            <a href="https://www.wunderground.com/weather/us/wa/bellevue/KWABELLE229" target="_blank">WUnder</a> |
 				<a href="http://www.wunderground.com/wundermap/?lat=47.68687057&lon=-122.18956757&zoom=8&pin=Kirkland%2c%20WA&rad=1&wxsn=0&svr=0&cams=0&sat=0&riv=0&mm=0&hur=0" target="_blank">Radar</a> |
 				<a href="http://www.accuweather.com/en/us/kirkland-wa/98033/minute-weather-forecast/341298" target="_blank">MinuteCast</a>
             <div class="subheader">food</div>
@@ -242,7 +246,7 @@
             <div class="subheader">local</div>
             <a href="http://seattlepi.nwsource.com/" target="_blank">PI</a> | 
 				<a href="http://www.seattletimes.com/" target="_blank">Times</a> |
-				<a href="http://www.kirklandreporter.com/" target="_blank">Kirkland</a>
+				<a href="http://www.bellevuereporter.com/" target="_blank">Bellevue</a>
             <div class="subheader">other</div>
             <a href="http://www.npr.org/" target="_blank">NPR</a> | 
 				<a href="http://www.newscientist.com/news/" target="_blank">New Scientist </a>|
@@ -273,13 +277,14 @@
         <br />
         <div class="subheader">government</div>
         <a href="http://www.kingcounty.gov/" target="_blank">King County</a> | 
+            <a href="https://www.bellevuewa.gov/" target="_blank">Bellevue</a> |
 				<a href="http://www.ci.kirkland.wa.us/" target="_blank">Kirkland</a>
         <br />
         <div class="subheader">environment</div>
         <a href="http://www.pscleanair.org/airq/status.aspx" target="_blank">Burning</a> | 
 				<a href="http://www.seattle.gov/util/EnvironmentConservation/OurWatersheds/index.htm" target="_blank">Water</a><br />
         <div class="subheader">food</div>
-        <a href="https://www.dinnerdeliveryplus.com/index.php?module=modRDS&op=restaurants" target="_blank">Dinner Delivery</a> | 
+        <a href="https://www.doordash.com/" target="_blank">Door Dash</a> | 
 				<a href="http://www.bitesquad.com/search/?search%5Baddress%5D=12627+NE+87th+Pl%2C+Kirkland%2C+WA%2C+United+States&search%5Bdistance%5D=5&search%5BstreetAddress%5D=12627+Northeast+87th+Place&search%5BunitNumber%5D=&search%5Bcity%5D=Kirkland&search%5Bstate%5D=Washington&search%5BzipCode%5D=98033-5966&search%5Blatitude%5D=47.680706&search%5Blongitude%5D=-122.17140240000003&search%5BmaxResults%5D=20&search%5BfirstResult%5D=0&search%5BorderTypes%5D=1" target="_blank">Bite Squad</a> | 
 				<a href="http://pagliacci.com/menu" target="_blank">Pagliacci</a>
         <br />

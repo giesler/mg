@@ -23,7 +23,7 @@ public partial class Login : System.Web.UI.Page
         {
             try
             {
-                homeIps = Dns.GetHostAddresses("ddns.msn2.net");
+                homeIps = Dns.GetHostAddresses("ddns.ms2n.net");
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ public partial class Login : System.Web.UI.Page
     {
         HttpCookie cookie = new HttpCookie("Login", "1");
         cookie.Expires = expire;
-        cookie.Domain = "msn2.net";
+        cookie.Domain = "ms2n.net";
 
         Response.AppendCookie(cookie);
 
@@ -89,7 +89,7 @@ public partial class Login : System.Web.UI.Page
         }
         else
         {
-            Response.Redirect("http://www.msn2.net/");
+            Response.Redirect("http://www.ms2n.net/");
         }
     }
 }

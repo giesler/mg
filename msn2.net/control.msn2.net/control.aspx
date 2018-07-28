@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="control.aspx.cs" Inherits="control" %>
 
 <!DOCTYPE html>
 
@@ -24,18 +24,18 @@
         <div class="headerLink" style="padding: 4px">
             <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="http://home.ms2n.net">home</a> | <a href="http://cams.ms2n.net/">cams</a> |  <a href="/" style="color:deepskyblue">control</a>
         </div>
-        <div style="width:100%; padding: 6px">
-            <asp:DropDownList ID="location2" runat="server" AutoPostBack="true" /> <asp:DropDownList ID="location1" runat="server" AutoPostBack="true" />
-        </div>
-        <div>
+        <div style="padding: 6px">
+            &nbsp;<asp:HyperLink runat="server" ID="back" NavigateUrl="/" Text="&lt; Back to devices" /><br /> <br />
+            &nbsp;<asp:Label runat="server" ID="name" /> - <asp:Label runat="server" ID="status" /><br />
+
             <asp:ListView ID="items" runat="server">
                 <ItemTemplate>
                     <div style="width: 100%; padding: 6px">
-                        <asp:LinkButton runat="server" ID="controlLink" Text='<%# Eval("Name")%>' ToolTip='<%# Eval("Device_Type_String") %>' OnClick="controlLink_Click" CommandArgument='<%# Eval("Ref") %>' />
-                        <asp:Label runat="server" ID="lbl"  /> - <asp:Label runat="server" ID="status" Text='<%# Eval("Status") %>' />
+                        <asp:LinkButton runat="server" ID="controlLink" Text='<%# Eval("Label")%>' ToolTip='<%# Eval("ControlValue") %>' CommandArgument='<%# Eval("ControlValue") %>' OnClick="controlLink_Click" />
                     </div>
                 </ItemTemplate>                
             </asp:ListView>
+
         </div>
     </form>
 </body>

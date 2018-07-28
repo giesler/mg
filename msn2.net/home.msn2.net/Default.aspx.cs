@@ -18,7 +18,7 @@ public partial class _Default : System.Web.UI.Page
             HttpCookie cookie = Request.Cookies["Login"];
             if (cookie == null || cookie.Value != "1")
             {
-                Response.Redirect("http://login.msn2.net/?r=http://home.msn2.net/");
+                Response.Redirect("http://login.ms2n.net/?r=http://home.ms2n.net/");
             }
         }
 
@@ -27,6 +27,20 @@ public partial class _Default : System.Web.UI.Page
 
     void LoadData()
     {
+        try
+        {
+            TryLoadData();
+        }
+        catch (Exception e)
+        {
+            errorPanel.Visible = true;
+            error.Text = "Error loading weather and device data: " + e.Message;
+            error.ToolTip = e.StackTrace;
+        }
+    }
+
+    void TryLoadData()
+        { 
         NetatmoIntegration netatmo = new NetatmoIntegration();
         netatmo.Init();
 

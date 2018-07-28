@@ -19,7 +19,7 @@ public class CamViews
         views.Add(CamViews.GetSideView());
         views.Add(CamViews.GetGarageDoorView());
         views.Add(CamViews.GetCoopTopView());
-        views.Add(CamViews.GetCoopDoorView());
+//        views.Add(CamViews.GetCoopDoorView());
 
         return views;
     }
