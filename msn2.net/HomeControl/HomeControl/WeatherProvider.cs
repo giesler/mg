@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
@@ -10,7 +11,7 @@ namespace msn2.net
     {
         public WeatherResponse GetWeatherData()
         {
-            string url = "http://api.wunderground.com/api/C2bfc4d17fa56e9e/alerts/conditions/q/pws:KWAKIRKL79.json";
+            string url = "http://api.wunderground.com/api/C2bfc4d17fa56e9e/alerts/conditions/q/pws:KWABELLE229.json";
             HttpWebResponse response = Get(url);
 
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(WeatherResponse));
@@ -18,14 +19,24 @@ namespace msn2.net
             object zoneObject = json.ReadObject(response.GetResponseStream());
             return zoneObject as WeatherResponse;
         }
-
+         
         public ForecastResponse GetForecastData()
         {
-            string url = "http://api.wunderground.com/api/c2bfc4d17fa56e9e/forecast/q/WA/Kirkland.json";
+            string url = "http://api.wunderground.com/api/c2bfc4d17fa56e9e/forecast/q/WA/Bellevue.json";
             HttpWebResponse response = Get(url);
+            
+            /*
+            using (Stream s = response.GetResponseStream())
+            {
+                using (StreamReader sr = new StreamReader(s))
+                {
+                    string statusXml = sr.ReadToEnd();
+                    s.Position = 0;
+                }
+            }
+            */
 
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(ForecastResponse));
-
             object obj = json.ReadObject(response.GetResponseStream());
             return obj as ForecastResponse;
         }
@@ -93,8 +104,8 @@ namespace msn2.net
                 ForecastText = txt.ForecastText,
                 Conditions = simple.Conditions,
                 IconUrl = simple.IconUrl,
-                High = simple.High.Degrees,
-                Low = simple.Low.Degrees,
+                High = simple.High.Degrees.ToString(),
+                Low = simple.Low.Degrees.ToString(),
                 PercentagePrecip = simple.PercentagePercip,
                 QuantityPercip = simple.QuantityPercip.Quantity,
                 Title = txt.Title
@@ -110,9 +121,9 @@ namespace msn2.net
         public string ForecastText { get; set; }
         public int PercentagePrecip { get; set; }
 
-        public int High { get; set; }
+        public string High { get; set; }
 
-        public int Low { get; set; }
+        public string Low { get; set; }
 
         public string Conditions { get; set; }
 
@@ -217,7 +228,7 @@ namespace msn2.net
     public class TemperatureItem
     {
         [DataMember(Name ="fahrenheit")]
-        public int Degrees { get; set; }
+        public string Degrees { get; set; }
 
         public override string ToString()
         {

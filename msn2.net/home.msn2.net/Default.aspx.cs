@@ -34,6 +34,7 @@ public partial class _Default : System.Web.UI.Page
         catch (Exception e)
         {
             errorPanel.Visible = true;
+            weatherPanel.Visible = false;
             error.Text = "Error loading weather and device data: " + e.Message;
             error.ToolTip = e.StackTrace;
         }

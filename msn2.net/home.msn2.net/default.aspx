@@ -1,5 +1,4 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
@@ -14,12 +13,13 @@
     <link rel="SHORTCUT ICON" href="favicon.ico" />
 </head>
 
-<body class="bodyStyle" style="color: black">
+<body class="bodyStyle">
 
-    <div class="headerLink" style="padding: 4px">
-        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="http://home.ms2n.net" style="color:deepskyblue">home</a> | <a href="http://cams.ms2n.net/">cams</a> |  <a href="http://control.ms2n.net/">control</a>
+    <div class="headerLink" style="padding: 4px; border-bottom-color: silver;">
+        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="http://home.ms2n.net" style="color: deepskyblue">home</a>
+        <!-- | <a href="http://cams.ms2n.net/">cams</a> |  <a href="http://control.ms2n.net/">control</a> -->
     </div>
-    <div style="width: 100%; clear: both; background-color: black">
+    <!--    <div style="width: 100%; clear: both; background-color: black; visibility: hidden">
         <a class="smallthumb" href="http://cams.ms2n.net/?c=dw1" target="_top">
             <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=dw1&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
         <a class="smallthumb" href="http://cams.ms2n.net/?c=front" target="_top">
@@ -30,22 +30,23 @@
             <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
         <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopTop" target="_top">
             <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopTop&amp;h=64&amp;id=th" style="height: 64px; width: 102px" /></a>
-<!--        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopDoor" target="_top">
+        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopDoor" target="_top">
             <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px; width: 113px" /></a>
--->    </div>
-    <asp:Panel runat="server" ID="errorPanel" Visible="false" Width="100%" ForeColor="DarkRed" >
+    </div>
+-->
+    <asp:Panel runat="server" ID="errorPanel" Visible="false" Width="100%" ForeColor="DarkRed">
         <asp:Label runat="server" ID="error" />
-        </asp:Panel>
-    <div style="float: left">
-        <div style="float: left;">
-            <table style="padding: 2px">
+    </asp:Panel>
+    <asp:Panel runat="server" ID="weatherPanel" CssClass="weatherPanel">
+        <div style="float: left; padding-top: 4px">
+            <table cellpadding="2px">
                 <tr>
-                    <td colspan="2" style="border-bottom: 1px solid black">outside</td>
+                    <td colspan="2" style="border-bottom: 1px solid silver">outside</td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Image ID="outsideImage" runat="server" ImageAlign="Left" CssClass="weatherImg" />
-                        <asp:Label ID="outsideCurrent" runat="server" Font-Size="XX-Large" />
+                        &nbsp;<asp:Label ID="outsideCurrent" runat="server" Font-Size="XX-Large" />
                         &nbsp;
                     </td>
                     <td>
@@ -56,10 +57,10 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left;">
-            <table style="padding: 2px">
+        <div style="float: left; padding: 2px; padding-top: 6px">
+            <table>
                 <tr>
-                    <td style="border-bottom: 1px solid black">inside</td>
+                    <td style="border-bottom: 1px solid silver">inside</td>
                 </tr>
                 <tr>
                     <td>
@@ -67,7 +68,7 @@
                             <tr>
                                 <td>media room</td>
                                 <td>&nbsp;</td>
-                                <td>mstr bdrm</td>
+                                <td>north mstr</td>
                             </tr>
                             <tr>
                                 <td align="center">
@@ -81,130 +82,128 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div style="float: left">
-        <table>
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <td colspan="3" style="border-bottom: 1px solid black"><a href="https://www.wunderground.com/weather/us/wa/bellevue/KWABELLE229" target="_blank">bellevue forecast</a></td>
-                        </tr>
-                        <tr>
-                            <td>today</td>
-                            <td>tomorrow</td>
-                            <td>
-                                <asp:Label runat="server" ID="day2Label" /></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 110px">
-                                <asp:Image runat="server" ID="day0icon" ImageAlign="Left" CssClass="icon" />
-                                <asp:Label runat="server" ID="day0hi" CssClass="hiTemp" />
-                                /
+        <div style="float: left">
+            <table>
+                <tr>
+                    <td>
+                        <table style="padding: 2px">
+                            <tr>
+                                <td colspan="3" style="border-bottom: 1px solid silver"><a href="https://www.wunderground.com/weather/us/wa/bellevue/KWABELLE229" target="_blank">bellevue forecast</a></td>
+                            </tr>
+                            <tr>
+                                <td>today</td>
+                                <td>tomorrow</td>
+                                <td>
+                                    <asp:Label runat="server" ID="day2Label" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 115px">
+                                    <asp:Image runat="server" ID="day0icon" ImageAlign="Left" CssClass="icon" />
+                                    <asp:Label runat="server" ID="day0hi" CssClass="hiTemp" />
+                                    /
 									<asp:Label runat="server" ID="day0low" CssClass="loTemp" />
-                                <br />
-                                <div style="font-size: x-small">
-                                    <asp:Label runat="server" ID="day0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day0precip" />
-                                </div>
-                            </td>
-                            <td style="width: 110px">
-                                <asp:Image runat="server" ID="day1icon" ImageAlign="Left" CssClass="icon" />
-                                <asp:Label runat="server" ID="day1hi" CssClass="hiTemp" />
-                                /
+                                    <br />
+                                    <div style="font-size: x-small">
+                                        <asp:Label runat="server" ID="day0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day0precip" />
+                                    </div>
+                                </td>
+                                <td style="width: 115px">
+                                    <asp:Image runat="server" ID="day1icon" ImageAlign="Left" CssClass="icon" />
+                                    <asp:Label runat="server" ID="day1hi" CssClass="hiTemp" />
+                                    /
 									<asp:Label runat="server" ID="day1low" CssClass="loTemp" />
-                                <br />
-                                <div style="font-size: x-small">
-                                    <asp:Label runat="server" ID="day1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day1precip" />
-                                </div>
-                            </td>
-                            <td style="width: 110px">
-                                <asp:Image runat="server" ID="day2icon" ImageAlign="Left" CssClass="icon" />
-                                <asp:Label runat="server" ID="day2hi" CssClass="hiTemp" />
-                                /
+                                    <br />
+                                    <div style="font-size: x-small">
+                                        <asp:Label runat="server" ID="day1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day1precip" />
+                                    </div>
+                                </td>
+                                <td style="width: 115px">
+                                    <asp:Image runat="server" ID="day2icon" ImageAlign="Left" CssClass="icon" />
+                                    <asp:Label runat="server" ID="day2hi" CssClass="hiTemp" />
+                                    /
 									<asp:Label runat="server" ID="day2low" CssClass="loTemp" />
-                                <br />
-                                <div style="font-size: x-small">
-                                    <asp:Label runat="server" ID="day2pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day2precip" />
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div style="float: left">
-        <table>
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <td colspan="2" style="border-bottom: 1px solid black"><a href="https://www.wunderground.com/forecast/us/wa/randle/98377" target="_blank"><asp:Label runat="server" ID="randleHeader" /></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label runat="server" ID="randleDay0Name" /></td>
-                            <td>
-                                <asp:Label runat="server" ID="randleDay1Name" /></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 110px">
-                                <asp:Image runat="server" ID="randleDay0Icon" ImageAlign="Left" CssClass="icon" />
-                                <asp:Label runat="server" ID="randleDay0Hi" CssClass="hiTemp" />
-                                /
+                                    <br />
+                                    <div style="font-size: x-small">
+                                        <asp:Label runat="server" ID="day2pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day2precip" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="float: left">
+            <table>
+                <tr>
+                    <td>
+                        <table style="padding: 2px">
+                            <tr>
+                                <td colspan="2" style="border-bottom: 1px solid silver"><a href="https://www.wunderground.com/forecast/us/wa/randle/98377" target="_blank">
+                                    <asp:Label runat="server" ID="randleHeader" /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label runat="server" ID="randleDay0Name" /></td>
+                                <td>
+                                    <asp:Label runat="server" ID="randleDay1Name" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 115px">
+                                    <asp:Image runat="server" ID="randleDay0Icon" ImageAlign="Left" CssClass="icon" />
+                                    <asp:Label runat="server" ID="randleDay0Hi" CssClass="hiTemp" />
+                                    /
 									<asp:Label runat="server" ID="randleDay0Low" CssClass="loTemp" />
-                                <br />
-                                <div class="precip">
-                                    <asp:Label runat="server" ID="randleDay0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay0precip" />
-                                </div>
-                            </td>
-                            <td style="width: 110px">
-                                <asp:Image runat="server" ID="randleDay1Icon" ImageAlign="Left" CssClass="icon" />
-                                <asp:Label runat="server" ID="randleDay1Hi" CssClass="hiTemp" />
-                                /
+                                    <br />
+                                    <div class="precip">
+                                        <asp:Label runat="server" ID="randleDay0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay0precip" />
+                                    </div>
+                                </td>
+                                <td style="width: 115px">
+                                    <asp:Image runat="server" ID="randleDay1Icon" ImageAlign="Left" CssClass="icon" />
+                                    <asp:Label runat="server" ID="randleDay1Hi" CssClass="hiTemp" />
+                                    /
 									<asp:Label runat="server" ID="randleDay1Low" CssClass="loTemp" />
-                                <br />
-                                <div class="precip">
-                                    <asp:Label runat="server" ID="randleDay1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay1precip" />
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
-    </div>
-	<div style="clear: both">
+                                    <br />
+                                    <div class="precip">
+                                        <asp:Label runat="server" ID="randleDay1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay1precip" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </asp:Panel>
+    <div style="clear: both; padding-left: 6px">
         <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
-            <div style="width: 100%; border-bottom: solid black 1px">
+            <div style="width: 100%; border-bottom: solid silver 1px">
                 home
             </div>
             <div class="subheader">sites</div>
             <a href="http://dome.msn2.net" target="_blank">Dome</a>
             <div class="subheader">services</div>
-            <a href="http://192.168.1.55/WEB/had.htm" target="_blank">ISY</a> |
-				<a href="https://home.nest.com/" target="_blank">Nest</a>
+            <a href="https://myhs.homeseer.com/" target="_blank">MyHS</a> |
+				<a href="https://ms2n.us4.quickconnect.to/" target="_blank">NAS</a> |
+                <a href="http://hplaserjet/" target="_blank">HP</a>
             <br />
             <a href="https://my.netatmo.com/app/station" target="_blank">Netatmo</a> | 
-				<a href="https://app.rach.io/" target="_blank">Rachio</a><br />
-            <a href="http://192.168.1.60:8081/" target="_blank">HA Bridge</a> | 
-				<a href="http://hplaserjet/" target="_blank">HP</a>
+				<a href="https://app.rach.io/" target="_blank">Rachio</a>
             <div class="subheader">media</div>
             <a href="http://online.tivo.com" target="_blank">TiVo</a> |
 				<a href="https://app.plex.tv/web/app#" target="_blank">Plex</a> |
 				<a href="http://xfinitytv.comcast.net" target="_blank">Xfinity</a>
             <div class="subheader">network</div>
-            Main: <a href="http://msn2w1.sp.msn2.net/" target="_blank">router</a> |
-				<a href="http://msn2s1.sp.msn2.net/" target="_blank">switch</a><br />
-            <a href="http://10.0.0.1" target="_blank">Modem</a>
+            <a href="https://unifi.ubnt.com/#/controllers/1/50" target="_blank">Unifi</a>
             <div class="subheader">other</div>
             <a href="http://www.onedrive.com" target="_blank">OneDrive</a> | 
-				<a href="http://www.outlook.com/owa/giesler.org/" target="_blank">OWA</a>
+				<a href="http://www.outlook.com/owa/giesler.org/" target="_blank">OWA</a><br />
+            <a href="http://messages.android.com">IMs</a> | <a href="http://hangouts.google.com/">Hangouts</a>
         </div>
         <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
-            <div style="width: 100%; border-bottom: solid black 1px">
+            <div style="width: 100%; border-bottom: solid silver 1px">
                 top links
             </div>
             <div class="topsubheader">search</div>
@@ -234,7 +233,7 @@
 				<a href="http://www.slashdot.org/" target="_blank">/.</a>
         </div>
         <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
-            <div style="width: 100%; border-bottom: solid black 1px">
+            <div style="width: 100%; border-bottom: solid silver 1px">
                 news
             </div>
             <div class="topsubheader">top</div>
@@ -267,7 +266,7 @@
         </div>
     </div>
     <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
-        <div style="width: 100%; border-bottom: solid black 1px">
+        <div style="width: 100%; border-bottom: solid silver 1px">
             local
         </div>
         <div class="topsubheader">traffic</div>
@@ -293,13 +292,10 @@
 				<a href="http://www.vegseattle.com/" target="_blank">VegSeattle</a>
         <br />
         <div class="subheader">bus stops</div>
-        <a href="http://pugetsound.onebusaway.org/where/standard/stop.action?id=1_74342" target="_blank">Honda</a> | 
-				<a href="http://pugetsound.onebusaway.org/where/standard/stop.action?id=1_73845" target="_blank">Safeway</a> |
-				<a href="http://pugetsound.onebusaway.org/where/standard/stop.action?id=1_73953" target="_blank">McDonalds</a> | 
-				<a href="http://pugetsound.onebusaway.org/where/standard/#ll(47.6794,-122.1754)spn(0.0110,0.0187)" target="_blank">more...</a>
+        <a href="http://pugetsound.onebusaway.org/where/standard/#ll(47.6379,-122.1435)spn(0.0193,0.0563)" target="_blank">Bridle Trails area</a>
     </div>
     <div style="float: left; padding-left: 3px;">
-        <div style="width: 100%; border-bottom: solid black 1px">
+        <div style="width: 100%; border-bottom: solid silver 1px">
             media
         </div>
         <div class="topsubheader">tv</div>
@@ -307,8 +303,7 @@
         <br />
         <div class="subheader">movies</div>
         <a href="http://movies.msn.com/movies/finda.aspx?shloc=98033&amp;famsel=-1" target="_blank">Showtimes</a> |
-				<a href="http://www.netflix.com/" target="_blank">NetFlix</a> |
-				<a href="http://www.cinesift.com/" target="_blank">Cinesift</a>
+				<a href="http://www.netflix.com/" target="_blank">NetFlix</a>
         <br />
         <div class="subheader">video</div>
         <a href="http://www.youtube.com/" target="_blank">YouTube</a> |
@@ -324,4 +319,3 @@
     </div>
 </body>
 </html>
-

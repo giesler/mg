@@ -1,7 +1,8 @@
 ﻿body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 0px;
-    color: white;
+    color: silver;
+    background-color: black;
     height: 100%;
     font-size: small;
     border: 0px;
@@ -16,7 +17,7 @@
 
 .fullImage {
     width: 100%;
-    height: 100%;
+    height: 100%;%
 }
 
 .leftFloat {
@@ -29,7 +30,7 @@
 }
 
 A {
-    color: gray;
+    color: white;
     text-decoration: none;
 }
 
@@ -74,14 +75,14 @@ A.disabledLink {
 
 A:link {
     text-decoration: none;
-    color: navy;
+    color: white;
 }
 
 .headerLink A:link {
     text-decoration: none;
     color: white;
     background: black;
-    color: white;
+    color: silver;
     padding: 6px;
     font-weight: bold;
 }
@@ -90,7 +91,6 @@ A:link {
     text-decoration: none;
     color: white;
     background: black;
-    color: white;
     padding: 6px;
     font-weight: bold;
 }
@@ -138,26 +138,6 @@ A:link {
     height: 30px;
 }
 
-A:link {
-    text-decoration: none;
-    color: navy;
-}
-
-a:visited {
-    text-decoration: none;
-    color: navy;
-}
-
-.headerLink A:link {
-    text-decoration: none;
-    color: white;
-}
-
-.headerLink A:visited {
-    text-decoration: none;
-    color: white;
-}
-
 .headerLink {
     background-color: black;
     color: white;
@@ -177,15 +157,16 @@ a:visited {
     padding: 0px;
     margin: 0px;
     border: 0px;
+    height: 40px;
 }
 .minSpace {
     border-spacing: 0px;
 }
 .loTemp {
-    color: darkblue;
+    color: lightskyblue;
 }
 .hiTemp {
-    color: darkred;
+    color: red;
 }
 .buttonDiv {
     float: right; 
@@ -198,4 +179,11 @@ a:visited {
 }
 .icon {
     padding: 2px;
+    height: 25px;
+    padding-right: 4px;
+}
+.weatherPanel {
+    float: left;
+    padding: 2px;
+    padding-left: 6px
 }
