@@ -4,7 +4,7 @@
     color: silver;
     background-color: black;
     height: 100%;
-    font-size: small;
+    font-size: large;
     border: 0px;
     margin: 0px;
 }
@@ -96,13 +96,13 @@ A:link {
 }
 
 .subheader {
-    font-size: x-small;
+    font-size: small;
     padding-top: 4px;
     margin-bottom: -2px;
 }
 
 .topsubheader {
-    font-size: x-small;
+    font-size: small;
     margin-bottom: -2px;
 }
 
@@ -144,15 +144,11 @@ A:link {
 }
 
 .subheader {
-    font-size: x-small;
+    font-size: medium;
     padding-top: 4px;
     margin-bottom: -2px;
 }
 
-.topsubheader {
-    font-size: x-small;
-    margin-bottom: -2px;
-}
 .weatherImg {
     padding: 0px;
     margin: 0px;
@@ -164,9 +160,11 @@ A:link {
 }
 .loTemp {
     color: lightskyblue;
+    font-size: large;
 }
 .hiTemp {
     color: red;
+    font-size: large;
 }
 .buttonDiv {
     float: right; 
@@ -174,7 +172,7 @@ A:link {
     margin-right: 10px;
 }
 .precip {
-    font-size: x-small;
+    font-size: medium;
     margin: 2px;
 }
 .icon {

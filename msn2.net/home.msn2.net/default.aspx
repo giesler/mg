@@ -103,7 +103,7 @@
                                     /
 									<asp:Label runat="server" ID="day0low" CssClass="loTemp" />
                                     <br />
-                                    <div style="font-size: x-small">
+                                    <div style="font-size: medium">
                                         <asp:Label runat="server" ID="day0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day0precip" />
                                     </div>
                                 </td>
@@ -113,7 +113,7 @@
                                     /
 									<asp:Label runat="server" ID="day1low" CssClass="loTemp" />
                                     <br />
-                                    <div style="font-size: x-small">
+                                    <div style="font-size: medium">
                                         <asp:Label runat="server" ID="day1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day1precip" />
                                     </div>
                                 </td>
@@ -123,7 +123,7 @@
                                     /
 									<asp:Label runat="server" ID="day2low" CssClass="loTemp" />
                                     <br />
-                                    <div style="font-size: x-small">
+                                    <div style="font-size: medium">
                                         <asp:Label runat="server" ID="day2pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day2precip" />
                                     </div>
                                 </td>
@@ -187,7 +187,7 @@
             <div class="subheader">services</div>
             <a href="https://myhs.homeseer.com/" target="_blank">MyHS</a> |
 				<a href="https://ms2n.us4.quickconnect.to/" target="_blank">NAS</a> |
-                <a href="http://hplaserjet/" target="_blank">HP</a>
+                <a href="http://hp2015/" target="_blank">HP</a>
             <br />
             <a href="https://my.netatmo.com/app/station" target="_blank">Netatmo</a> | 
 				<a href="https://app.rach.io/" target="_blank">Rachio</a>
