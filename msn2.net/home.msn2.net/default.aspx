@@ -38,7 +38,7 @@
         <asp:Label runat="server" ID="error" />
     </asp:Panel>
     <asp:Panel runat="server" ID="weatherPanel" CssClass="weatherPanel">
-        <div style="float: left; padding-top: 4px">
+        <div style="float: left; padding-top: 4px; margin: 8px">
             <table cellpadding="2px">
                 <tr>
                     <td colspan="2" style="border-bottom: 1px solid silver">outside</td>
@@ -57,7 +57,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left; padding: 2px; padding-top: 6px">
+        <div style="float: left; padding: 2px; padding-top: 6px; margin: 8px">
             <table>
                 <tr>
                     <td style="border-bottom: 1px solid silver">inside</td>
@@ -82,7 +82,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left">
+        <div style="float: left; margin: 8px">
             <table>
                 <tr>
                     <td>
@@ -133,7 +133,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left">
+        <div style="float: left; margin: 8px">
             <table>
                 <tr>
                     <td>
@@ -178,7 +178,7 @@
         </div>
     </asp:Panel>
     <div style="clear: both; padding-left: 6px">
-        <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
+        <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px; margin: 8px">
             <div style="width: 100%; border-bottom: solid silver 1px">
                 home
             </div>
@@ -186,9 +186,8 @@
             <a href="http://dome.msn2.net" target="_blank">Dome</a>
             <div class="subheader">services</div>
             <a href="https://myhs.homeseer.com/" target="_blank">MyHS</a> |
-				<a href="https://ms2n.us4.quickconnect.to/" target="_blank">NAS</a> |
-                <a href="http://hp2015/" target="_blank">HP</a>
-            <br />
+				<a href="https://ms2n.us4.quickconnect.to/" target="_blank">NAS</a>
+            <div class="subheader">temp / watering</div>
             <a href="https://my.netatmo.com/app/station" target="_blank">Netatmo</a> | 
 				<a href="https://app.rach.io/" target="_blank">Rachio</a>
             <div class="subheader">media</div>
@@ -196,17 +195,18 @@
 				<a href="https://app.plex.tv/web/app#" target="_blank">Plex</a> |
 				<a href="http://xfinitytv.comcast.net" target="_blank">Xfinity</a>
             <div class="subheader">network</div>
-            <a href="https://unifi.ubnt.com/#/controllers/1/50" target="_blank">Unifi</a>
+            <a href="https://unifi.ubnt.com/#/controllers/1/50" target="_blank">Unifi</a> | 
+                <a href="http://hp2015/" target="_blank">HP</a>
             <div class="subheader">other</div>
             <a href="http://www.onedrive.com" target="_blank">OneDrive</a> | 
 				<a href="http://www.outlook.com/owa/giesler.org/" target="_blank">OWA</a><br />
             <a href="http://messages.android.com">IMs</a> | <a href="http://hangouts.google.com/">Hangouts</a>
         </div>
-        <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
+        <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px; margin: 8px">
             <div style="width: 100%; border-bottom: solid silver 1px">
                 top links
             </div>
-            <div class="topsubheader">search</div>
+            <div class="subheader">search</div>
             <a href="http://www.bing.com/" target="_blank">Bing</a> | 
 				<a href="http://www.google.com/" target="_blank">Google</a> | 
 				<a href="http://en.wikipedia.org/wiki/Main_Page" target="_blank">Wikipedia</a> | 
@@ -219,6 +219,7 @@
             <a href="http://www.allrecipes.com/" target="_blank">All Recipies</a> |
 				<a href="http://www.epicurious.com/" target="_blank">Epicurious</a> |
 				<a href="http://www.seriouseats.com/" target="_blank">Serious Eats</a><br />
+            <div class="subheader">more food</div>
             <a href="http://thekitchn.com" target="_blank">The Kitchn</a> |
 				<a href="http://food52.com" target="_blank">Food 52</a> |
 				<a href="http://eater.com" target="_blank">Eater</a>
@@ -232,11 +233,11 @@
 				<a href="http://www.lifehacker.com/" target="_blank">Lifehacker</a> |
 				<a href="http://www.slashdot.org/" target="_blank">/.</a>
         </div>
-        <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
+        <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px; margin: 8px">
             <div style="width: 100%; border-bottom: solid silver 1px">
                 news
             </div>
-            <div class="topsubheader">top</div>
+            <div class="subheader">top</div>
             <a href="http://www.bbc.co.uk/" target="_blank">BBC</a> |
 				<a href="http://news.google.com/" target="_blank">Google</a> |
 				<a href="http://t.msn.com/" target="_blank">MSN</a> | 
@@ -265,11 +266,11 @@
 				<a href="http://www.instagram.com/" target="_blank">Instagram</a>
         </div>
     </div>
-    <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px;">
+    <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px; margin: 8px">
         <div style="width: 100%; border-bottom: solid silver 1px">
             local
         </div>
-        <div class="topsubheader">traffic</div>
+        <div class="subheader">traffic</div>
         <a href="http://www.wsdot.wa.gov/traffic/seattle/flowmaps/bridges.htm" target="_blank">Maps</a> | 
 				<a href="http://www.wsdot.com/traffic/seattle/incidents/default.aspx" target="_blank">Incidents</a> | 
 				<a href="http://www.bellevuewa.gov/trafficmap/" target="_blank">Bellevue</a>
@@ -294,11 +295,11 @@
         <div class="subheader">bus stops</div>
         <a href="http://pugetsound.onebusaway.org/where/standard/#ll(47.6379,-122.1435)spn(0.0193,0.0563)" target="_blank">Bridle Trails area</a>
     </div>
-    <div style="float: left; padding-left: 3px;">
+    <div style="float: left; padding-left: 3px; margin: 8px">
         <div style="width: 100%; border-bottom: solid silver 1px">
             media
         </div>
-        <div class="topsubheader">tv</div>
+        <div class="subheader">tv</div>
         <a href="http://tv.msn.com/" target="_blank">MSN TV </a>
         <br />
         <div class="subheader">movies</div>
