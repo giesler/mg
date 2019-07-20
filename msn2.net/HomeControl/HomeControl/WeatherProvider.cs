@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,7 +12,7 @@ namespace msn2.net
     {
         public WeatherResponse GetWeatherData()
         {
-            string url = "http://api.wunderground.com/api/C2bfc4d17fa56e9e/alerts/conditions/q/pws:KWABELLE229.json";
+            string url = "https://api.weather.com/v2/pws/observations/current?stationId=KWABELLE229&format=json&units=e&apiKey=a138d274d4c8492cb8d274d4c8592cf3";
             HttpWebResponse response = Get(url);
 
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(WeatherResponse));
@@ -20,36 +21,40 @@ namespace msn2.net
             return zoneObject as WeatherResponse;
         }
          
-        public ForecastResponse GetForecastData()
+        public FiveDayForecast GetForecastData()
         {
-            string url = "http://api.wunderground.com/api/c2bfc4d17fa56e9e/forecast/q/WA/Bellevue.json";
+            string url = "https://api.weather.com/v3/wx/forecast/daily/5day?postalKey=98005:US&units=e&language=en-US&format=json&apiKey=a138d274d4c8492cb8d274d4c8592cf3";
             HttpWebResponse response = Get(url);
             
-            /*
-            using (Stream s = response.GetResponseStream())
-            {
-                using (StreamReader sr = new StreamReader(s))
-                {
-                    string statusXml = sr.ReadToEnd();
-                    s.Position = 0;
-                }
-            }
-            */
-
-            DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(ForecastResponse));
-            object obj = json.ReadObject(response.GetResponseStream());
-            return obj as ForecastResponse;
+            var json = new DataContractJsonSerializer(typeof(FiveDayForecast));
+            var obj = json.ReadObject(response.GetResponseStream());
+            return obj as FiveDayForecast;
         }
 
-        public ForecastResponse GetRandleForecastData()
+        public IEnumerable<FullForecast> GetRandleForecastData()
         {
-            string url = "http://api.wunderground.com/api/c2bfc4d17fa56e9e/forecast10day/q/WA/Randle.json";
+            string url = "https://api.weather.gov/gridpoints/SEW/129,68/forecast";
             HttpWebResponse response = Get(url);
 
-            DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(ForecastResponse));
+            DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Gridpoint));
 
             object obj = json.ReadObject(response.GetResponseStream());
-            return obj as ForecastResponse;
+            var p = obj as Gridpoint;
+
+            var list = new List<FullForecast>();
+            foreach (var period in p.Property.Periods.ToList())
+            {
+                list.Add(new FullForecast
+                {
+                     Title = period.Name,
+                     ForecastText = period.DetailedForecast,
+                     High = period.Temperature,
+                     Low = period.Temperature,
+                     IconUrl = period.IconUrl
+                });
+            }
+
+            return list;
         }
 
         static HttpWebResponse Get(string url)
@@ -58,6 +63,7 @@ namespace msn2.net
             req.Method = "GET";
             req.Proxy = null;
             req.ContentType = "application/json";
+            req.UserAgent = "MS2N Development";
 
             HttpWebResponse response = (HttpWebResponse)req.GetResponse();
             return response;
@@ -89,6 +95,45 @@ namespace msn2.net
     }
 
     [DataContract]
+    public class Gridpoint
+    {
+        [DataMember(Name = "properties")]
+        public GridpointProperty Property {  get; set; }
+    }
+
+    [DataContract]
+    public class GridpointProperty
+    {
+        [DataMember(Name = "periods")]
+        public ForecastPeriod[] Periods { get; set; }
+    }
+
+    [DataContract]
+    public class ForecastPeriod
+    {
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "isDaytime")]
+        public bool IsDaytime { get; set; }
+
+        [DataMember(Name = "temperature")]
+        public int Temperature { get; set; }
+
+        [DataMember(Name = "windSpeed")]
+        public string WindSpeed { get; set; }
+
+        [DataMember(Name = "icon")]
+        public string IconUrl { get; set; }
+
+        [DataMember(Name = "shortForecast")]
+        public string ShortForecast { get; set; }
+
+        [DataMember(Name = "detailedForecast")]
+        public string DetailedForecast { get; set; }
+    }
+
+    [DataContract]
     public class ForecastResponse
     {
         [DataMember(Name = "forecast")]
@@ -104,14 +149,79 @@ namespace msn2.net
                 ForecastText = txt.ForecastText,
                 Conditions = simple.Conditions,
                 IconUrl = simple.IconUrl,
-                High = simple.High.Degrees.ToString(),
-                Low = simple.Low.Degrees.ToString(),
                 PercentagePrecip = simple.PercentagePercip,
                 QuantityPercip = simple.QuantityPercip.Quantity,
                 Title = txt.Title
             };
         }
             
+    }
+
+    [DataContract]
+    public class FiveDayForecast
+    {
+        public FullForecast GetForecast(int offset)
+        {
+            return new FullForecast
+            {
+                ForecastText = Narrative[offset],
+                High = MaxTemperature[offset],
+                Low = MinTemperature[offset],
+                IconUrl = "https://icons.wxug.com/i/c/v4/" + PartialForecast[0].IconCode[offset * 2].ToString() + ".svg",
+                PercentagePrecip = PartialForecast[0].PrecipitationChance[offset * 2],
+                Title = DayOfWeek[offset]
+            };
+        }
+
+        [DataMember(Name = "dayOfWeek")]
+        public string[] DayOfWeek { get; set; }
+
+        [DataMember(Name = "narrative")]
+        public string[] Narrative { get; set; }
+
+        [DataMember(Name = "qpf")]
+        public decimal[] QuantityOfPreceipitation { get; set; }
+
+        [DataMember(Name = "temperatureMax")]
+        public int[] MaxTemperature { get; set; }
+
+        [DataMember(Name = "temperatureMin")]
+        public int[] MinTemperature { get; set; }
+
+        [DataMember(Name = "daypart")]
+        public FiveDayPartialForecast[] PartialForecast {get;set;}
+        
+    }
+
+    [DataContract]
+    public class FiveDayPartialForecast
+    {
+        [DataMember(Name = "cloudCover")]
+        public int[] CloudCoverPercentage { get; set; }
+
+        [DataMember(Name = "dayOrNight")]
+        public string[] DayOrNight { get; set; }
+
+        [DataMember(Name = "daypartName")]
+        public string[] Name { get; set; }
+
+        [DataMember(Name = "iconCode")]
+        public int[] IconCode { get; set; }
+
+        [DataMember(Name = "narrative")]
+        public string[] Narrative { get; set; }
+
+        [DataMember(Name = "precipChance")]
+        public int[] PrecipitationChance { get; set; }
+
+        [DataMember(Name="qpf")]
+        public decimal?[] PreceipitationQuantity { get; set; }
+
+        [DataMember(Name="temperature")]
+        public int[] Temperature { get; set; }
+
+        [DataMember(Name = "windPhrase")]
+        public string[] WindPhrase { get; set; }
     }
 
     public class FullForecast
@@ -121,9 +231,9 @@ namespace msn2.net
         public string ForecastText { get; set; }
         public int PercentagePrecip { get; set; }
 
-        public string High { get; set; }
+        public int High { get; set; }
 
-        public string Low { get; set; }
+        public int Low { get; set; }
 
         public string Conditions { get; set; }
 

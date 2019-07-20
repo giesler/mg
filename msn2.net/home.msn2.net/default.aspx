@@ -195,7 +195,7 @@
 				<a href="https://app.plex.tv/web/app#" target="_blank">Plex</a> |
 				<a href="http://xfinitytv.comcast.net" target="_blank">Xfinity</a>
             <div class="subheader">network</div>
-            <a href="https://unifi.ubnt.com/#/controllers/1/50" target="_blank">Unifi</a> | 
+            <a href="https://unifi.ubnt.com/#/controllers/1/50" target="_blank">UniFi</a> | 
                 <a href="http://hp2015/" target="_blank">HP</a>
             <div class="subheader">other</div>
             <a href="http://www.onedrive.com" target="_blank">OneDrive</a> | 

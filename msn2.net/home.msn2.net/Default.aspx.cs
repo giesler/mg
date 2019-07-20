@@ -1,5 +1,6 @@
 ﻿using msn2.net;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -62,27 +63,29 @@ public partial class _Default : System.Web.UI.Page
             HttpContext.Current.Cache.Add(DeviceCacheKey, deviceData, null, DateTime.Now.AddMinutes(5), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
         }
 
-        var forecastData = HttpContext.Current.Cache.Get(ForecastCacheKey) as ForecastResponse;
+        var forecastData = HttpContext.Current.Cache.Get(ForecastCacheKey) as FiveDayForecast;
         if (forecastData == null)
         {
             forecastData = weather.GetForecastData();
             HttpContext.Current.Cache.Add(ForecastCacheKey, forecastData, null, DateTime.Now.AddMinutes(30), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
         }
 
-        var randleData = HttpContext.Current.Cache.Get(RandleCacheKey) as ForecastResponse;
+        var randleData = HttpContext.Current.Cache.Get(RandleCacheKey) as IEnumerable<FullForecast>;
         if (randleData == null)
         {
             randleData = weather.GetRandleForecastData();
             HttpContext.Current.Cache.Add(RandleCacheKey, randleData, null, DateTime.Now.AddMinutes(90), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
         }
 
-
         Module outside = deviceData.Modules.First(i => i.ModuleName == "Outdoor");
         float outsideF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.Temperature);
         this.outsideCurrent.Text = ((int)outsideF).ToString("0");
 
-        outsideImage.ImageUrl = weatherData.WeatherObservation.IconUrl;
-        outsideImage.AlternateText = weatherData.WeatherObservation.Weather;
+        if (weatherData.WeatherObservation != null)
+        {
+            outsideImage.ImageUrl = weatherData.WeatherObservation.IconUrl;
+            outsideImage.AlternateText = weatherData.WeatherObservation.Weather;
+        }
 
         //        this.outsideTrend.Text = GetTrend(outside.DashboardData).Trim();
 
@@ -111,7 +114,7 @@ public partial class _Default : System.Web.UI.Page
 
         var day = DateTime.Now.DayOfWeek;
 
-        var day0 = forecastData.GetForecast(day);
+        var day0 = forecastData.GetForecast(0);
         this.day0icon.ImageUrl = day0.IconUrl;
         this.day0icon.AlternateText = day0.ForecastText;
         this.day0hi.Text = day0.High.ToString();
@@ -119,9 +122,7 @@ public partial class _Default : System.Web.UI.Page
         this.day0pop.Text = day0.PercentagePrecip.ToString() + "%";
         this.day0precip.Text = Precip(day0.QuantityPercip) + "\"";
 
-        day = NextDay(day);
-
-        var day1 = forecastData.GetForecast(day);
+        var day1 = forecastData.GetForecast(1);
         this.day1icon.ImageUrl = day1.IconUrl;
         this.day1icon.AlternateText = day1.ForecastText;
         this.day1hi.Text = day1.High.ToString();
@@ -129,9 +130,7 @@ public partial class _Default : System.Web.UI.Page
         this.day1pop.Text = day1.PercentagePrecip.ToString() + "%";
         this.day1precip.Text = Precip(day1.QuantityPercip) + "\"";
 
-        day = NextDay(day);
-
-        var day2 = forecastData.GetForecast(day);
+        var day2 = forecastData.GetForecast(2);
         this.day2icon.ImageUrl = day2.IconUrl;
         this.day2icon.AlternateText = day2.ForecastText;
         this.day2hi.Text = day2.High.ToString();
@@ -140,8 +139,8 @@ public partial class _Default : System.Web.UI.Page
         this.day2precip.Text = Precip(day2.QuantityPercip) + "\"";
         this.day2Label.Text = day2.Title.ToLower();
 
-        var randleDay0 = DayOfWeek.Saturday;
-        var randleDay1 = DayOfWeek.Sunday;
+        var randleDay0 = (int)DayOfWeek.Saturday - (int)DateTime.Now.DayOfWeek;
+        var randleDay1 = (int)DayOfWeek.Sunday - (int)DateTime.Now.DayOfWeek;
 
         bool isWeekend = false;
         if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday || DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
@@ -152,8 +151,12 @@ public partial class _Default : System.Web.UI.Page
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
             {
-                randleDay0 = DayOfWeek.Sunday;
-                randleDay1 = DayOfWeek.Monday;
+                randleDay0 = 0;
+                randleDay1 = 1;
+            }
+            else
+            {
+                randleDay1 = 1;
             }
         }
         else
@@ -161,7 +164,7 @@ public partial class _Default : System.Web.UI.Page
             this.randleHeader.Text = "next weekend in randle";
         }
 
-        var rDay0 = randleData.GetForecast(randleDay0);
+        var rDay0 = randleData.ToList()[randleDay0];
         this.randleDay0Icon.ImageUrl = rDay0.IconUrl;
         this.randleDay0Icon.AlternateText = rDay0.ForecastText;
         this.randleDay0Hi.Text = rDay0.High.ToString();
@@ -170,7 +173,7 @@ public partial class _Default : System.Web.UI.Page
         this.randleDay0precip.Text = Precip(rDay0.QuantityPercip) + "\"";
         this.randleDay0Name.Text = isWeekend ? "today" : rDay0.Title.ToLower();
 
-        var rDay1 = randleData.GetForecast(randleDay1);
+        var rDay1 = randleData.ToList()[randleDay1];
         this.randleDay1Icon.ImageUrl = rDay1.IconUrl;
         this.randleDay1Icon.AlternateText = rDay1.ForecastText;
         this.randleDay1Hi.Text = rDay1.High.ToString();
@@ -178,7 +181,6 @@ public partial class _Default : System.Web.UI.Page
         this.randleDay1pop.Text = rDay1.PercentagePrecip.ToString() + "%";
         this.randleDay1precip.Text = Precip(rDay1.QuantityPercip) + "\"";
         this.randleDay1Name.Text = rDay1.Title.ToLower();
-
     }
 
     string Precip(decimal val)
