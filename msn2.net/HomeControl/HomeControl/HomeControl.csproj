@@ -51,6 +51,7 @@
     <Compile Include="NetatmoTypes.cs" />
     <Compile Include="PowerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RachioIntegration.cs" />
     <Compile Include="SonosIntegration.cs" />
     <Compile Include="SonosTypes.cs" />
     <Compile Include="WeatherProvider.cs" />

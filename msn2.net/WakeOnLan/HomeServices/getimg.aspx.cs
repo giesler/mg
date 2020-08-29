@@ -30,7 +30,7 @@ namespace HomeServices
             string address = "http://invalid/";
             bool rotate = false;
 
-            address = string.Format("http://192.168.1.210:81/image/{0}", cam);
+            address = string.Format("http://192.168.4.224:81/image/{0}", cam);
 
             if (Request.QueryString["r"] == "0")
             {
@@ -43,9 +43,9 @@ namespace HomeServices
                 maxHeight = int.Parse(Request.QueryString["h"]);
             }
 
-            if (Environment.MachineName.ToLower() == "server0")
+            if (Environment.MachineName.ToLower() == "hs2")
             {
-                address = address.Replace("192.168.1.210", "127.0.0.1");
+//                address = address.Replace("192.168.4.224", "127.0.0.1");
             }
 
             int retries = 3;
@@ -58,7 +58,7 @@ namespace HomeServices
                         address, new Random().Next(100000));
                     HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
                     req.Method = WebRequestMethods.Http.Get;
-                    req.Credentials = new NetworkCredential("home", "4362", "");
+                    req.Credentials = new NetworkCredential("home", "Camping42", "");
 
                     Trace.Write("Requesting " + url);
 

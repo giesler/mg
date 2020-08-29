@@ -17,7 +17,7 @@ public partial class getimg : System.Web.UI.Page
         Response.Clear();
         Response.ContentType = "image/jpeg";
 
-        string cam = "1";
+        string cam = "gdw";
         if (Request.QueryString["c"] != null)
         {
             cam = Request.QueryString["c"];
@@ -30,7 +30,7 @@ public partial class getimg : System.Web.UI.Page
         }
 
         int random = new Random().Next(1, 5);
-        string address = string.Format("http://cam{0}.msn2.net:8808/getimg.aspx?c={1}&r={2}&ts={3}", random, cam, rotate ? "1" : "0", DateTime.Now.ToString("yymmddhhmmsstt"));
+        string address = string.Format("https://cam{0}.ms2n.net:8443/getimg.aspx?c={1}&r={2}&ts={3}", random, cam, rotate ? "1" : "0", DateTime.Now.ToString("yymmddhhmmsstt"));
         
         int maxHeight = 0;
         if (Request.QueryString["h"] != null)
@@ -40,7 +40,7 @@ public partial class getimg : System.Web.UI.Page
 
         HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(address);
         req.Method = WebRequestMethods.Http.Get;
-        req.Credentials = new NetworkCredential("home", "4362");
+//        req.Credentials = new NetworkCredential("home", "4362");
 
         using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
         {

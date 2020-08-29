@@ -23,21 +23,16 @@ public partial class _Default : System.Web.UI.Page
             }
         }
 
-        this.LoadData();
-    }
-
-    void LoadData()
-    {
         try
         {
             TryLoadData();
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
             errorPanel.Visible = true;
             weatherPanel.Visible = false;
-            error.Text = "Error loading weather and device data: " + e.Message;
-            error.ToolTip = e.StackTrace;
+            error.Text = "Error loading weather and device data: " + ex.Message;
+            error.ToolTip = ex.StackTrace;
         }
     }
 
@@ -104,7 +99,7 @@ public partial class _Default : System.Web.UI.Page
 
 
 
-        Module bedroom = deviceData.Modules.First(i => i.ModuleName == "Bedroom");
+        Module bedroom = deviceData.Modules.First(i => i.ModuleName == "North Master");
         float bedroomF = NetatmoIntegration.GetFahrenheit(bedroom.DashboardData.Temperature);
         this.bedroomCurrent.Text = ((int)bedroomF).ToString("0");
 
@@ -139,8 +134,11 @@ public partial class _Default : System.Web.UI.Page
         this.day2precip.Text = Precip(day2.QuantityPercip) + "\"";
         this.day2Label.Text = day2.Title.ToLower();
 
-        var randleDay0 = (int)DayOfWeek.Saturday - (int)DateTime.Now.DayOfWeek;
-        var randleDay1 = (int)DayOfWeek.Sunday - (int)DateTime.Now.DayOfWeek;
+        var randleList = randleData.ToList();
+        var randleDay0 =  randleData.FirstOrDefault(d => d.Title == "Saturday");
+        var randleDay0n = randleData.FirstOrDefault(d => d.Title == "Saturday Night");
+        var randleDay1 = randleData.FirstOrDefault(d => d.Title == "Sunday");
+        var randleDay1n = randleData.FirstOrDefault(d => d.Title == "Sunday Night");
 
         bool isWeekend = false;
         if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday || DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
@@ -151,12 +149,15 @@ public partial class _Default : System.Web.UI.Page
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
             {
-                randleDay0 = 0;
-                randleDay1 = 1;
+                randleDay0 = randleData.FirstOrDefault(d => (d.Title == "Sunday" || d.Title == "Today" || d.Title == "This Afternoon"));
+                randleDay0n = randleData.FirstOrDefault(d => (d.Title == "Sunday Night" || d.Title == "Tonight"));
+                randleDay1 = randleData.FirstOrDefault(d => d.Title == "Monday");
+                randleDay1n = randleData.FirstOrDefault(d => d.Title == "Monday Night");
             }
-            else
+            else if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
             {
-                randleDay1 = 1;
+                randleDay0 = randleData.FirstOrDefault(d => (d.Title == "Saturady" || d.Title == "Today" || d.Title == "This Afternoon"));
+                randleDay0n = randleData.FirstOrDefault(d => (d.Title == "Saturday Night" || d.Title == "Tonight"));
             }
         }
         else
@@ -164,35 +165,49 @@ public partial class _Default : System.Web.UI.Page
             this.randleHeader.Text = "next weekend in randle";
         }
 
-        var rDay0 = randleData.ToList()[randleDay0];
-        this.randleDay0Icon.ImageUrl = rDay0.IconUrl;
-        this.randleDay0Icon.AlternateText = rDay0.ForecastText;
-        this.randleDay0Hi.Text = rDay0.High.ToString();
-        this.randleDay0Low.Text = rDay0.Low.ToString();
-        this.randleDay0pop.Text = rDay0.PercentagePrecip.ToString() + "%";
-        this.randleDay0precip.Text = Precip(rDay0.QuantityPercip) + "\"";
-        this.randleDay0Name.Text = isWeekend ? "today" : rDay0.Title.ToLower();
+        this.randleDay0Icon.ImageUrl = randleDay0.IconUrl;
+        this.randleDay0Icon.AlternateText = randleDay0.ForecastText;
+        this.randleDay0Hi.Text = randleDay0.High.ToString();
+        this.randleDay0Low.Text = randleDay0n.Low.ToString();
+        this.randleDay0pop.Text = randleDay0.PercentagePrecip == null ? "" : randleDay0.PercentagePrecip.ToString() + "%";
+        this.randleDay0precip.Text = Precip(randleDay0.QuantityPercip) + "\"";
+        this.randleDay0Name.Text = isWeekend ? "today" : randleDay0.Title.ToLower();
 
-        var rDay1 = randleData.ToList()[randleDay1];
-        this.randleDay1Icon.ImageUrl = rDay1.IconUrl;
-        this.randleDay1Icon.AlternateText = rDay1.ForecastText;
-        this.randleDay1Hi.Text = rDay1.High.ToString();
-        this.randleDay1Low.Text = rDay1.Low.ToString();
-        this.randleDay1pop.Text = rDay1.PercentagePrecip.ToString() + "%";
-        this.randleDay1precip.Text = Precip(rDay1.QuantityPercip) + "\"";
-        this.randleDay1Name.Text = rDay1.Title.ToLower();
+        if (randleDay1 != null)
+        {
+            this.randleDay1Icon.ImageUrl = randleDay1.IconUrl;
+            this.randleDay1Icon.AlternateText = randleDay1.ForecastText;
+            this.randleDay1Hi.Text = randleDay1.High.ToString();
+            this.randleDay1Low.Text = randleDay1n.Low.ToString();
+            this.randleDay1pop.Text = randleDay1.PercentagePrecip == null ? "" : randleDay1.PercentagePrecip.ToString() + "%";
+            this.randleDay1precip.Text = Precip(randleDay1.QuantityPercip) + "\"";
+            this.randleDay1Name.Text = randleDay1.Title.ToLower();
+        }
     }
 
-    string Precip(decimal val)
+    string Precip(object val)
     {
-        if ((double)val < 0.01d)
+        double dblVal = 0;
+        if (val != null)
         {
-            return "0";
+            if (Double.TryParse(val.ToString(), out dblVal))
+            {
+                if (dblVal < 0.01)
+                {
+                    return "0";
+                }
+                else
+                {
+                    return dblVal.ToString("0.0");
+                }
+            }
+            else
+            {
+                return val.ToString();
+            }
         }
-        else
-        {
-            return val.ToString();
-        }
+
+        return "";
     }
 
     DayOfWeek NextDay(DayOfWeek current)

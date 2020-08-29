@@ -19,11 +19,11 @@
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
-        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="http://home.ms2n.net/" Visible="false" Text="home" />
+        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="https://home.ms2n.net/" Visible="false" Text="home" />
         <asp:Label runat="server" ID="logLinkSeperator0" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="http://control.ms2n.net/" Text="control" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="log" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="https://nas.ms2n.net:58433/webman/3rdparty/SurveillanceStation/" Text="nas" Visible="false" /> 
     </asp:Panel>
     <div style="height: 100%">
         <asp:Panel ID="mainPanel" runat="server" CssClass="leftFloat">
@@ -31,11 +31,11 @@
         </asp:Panel>
     </div>
     <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
-        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="http://home.ms2n.net/" Visible="false" Text="home" />
+        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="https://home.ms2n.net/" Visible="false" Text="home" />
         <asp:Label runat="server" ID="logLinkSeperator5" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="http://control.ms2n.net/" Text="control" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="log" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="https://nas.ms2n.net:58433/webman/3rdparty/SurveillanceStation/" Text="nas" Visible="false" /> 
     </asp:Panel>
 
     </form>

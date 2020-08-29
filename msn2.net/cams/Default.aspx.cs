@@ -21,7 +21,7 @@ public partial class _Default : System.Web.UI.Page
             HttpCookie cookie = Request.Cookies["Login"];
             if (cookie == null || cookie.Value != "1")
             {
-                Response.Redirect("http://login.ms2n.net/?r=http://cams.ms2n.net");
+//                Response.Redirect("http://login.ms2n.net/?r=https://cams.ms2n.net");
             }
         }
 
@@ -33,13 +33,13 @@ public partial class _Default : System.Web.UI.Page
         this.logLink2.Visible = true;
         this.homeLink1.Visible = true;
         this.homeLink2.Visible = true;
-        this.controlLink1.Visible = true;
-        this.controlLink2.Visible = true;
-        this.logLinkSeperator0.Visible = true;
+//        this.controlLink1.Visible = true;
+//        this.controlLink2.Visible = true;
+//        this.logLinkSeperator0.Visible = true;
         this.logLinkSeperator3.Visible = true;
-        this.logLinkSeperator4.Visible = true;
+//        this.logLinkSeperator4.Visible = true;
         this.logLinkSeperator5.Visible = true;
-        this.cam = "dw1";
+        this.cam = "gdw";
 
         this.topLinks.Visible = !mobile;
         this.bottomLinks.Visible = mobile;

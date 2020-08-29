@@ -48,8 +48,8 @@ namespace msn2.net
                 {
                      Title = period.Name,
                      ForecastText = period.DetailedForecast,
-                     High = period.Temperature,
-                     Low = period.Temperature,
+                     High = period.Temperature.ToString(),
+                     Low = period.Temperature.ToString(),
                      IconUrl = period.IconUrl
                 });
             }
@@ -162,15 +162,26 @@ namespace msn2.net
     {
         public FullForecast GetForecast(int offset)
         {
-            return new FullForecast
+            var forecast = new FullForecast
             {
                 ForecastText = Narrative[offset],
-                High = MaxTemperature[offset],
-                Low = MinTemperature[offset],
-                IconUrl = "https://icons.wxug.com/i/c/v4/" + PartialForecast[0].IconCode[offset * 2].ToString() + ".svg",
-                PercentagePrecip = PartialForecast[0].PrecipitationChance[offset * 2],
-                Title = DayOfWeek[offset]
+                High = MaxTemperature[offset] != null ? MaxTemperature[offset] : "",
+                Low = MinTemperature[offset] != null ? MinTemperature[offset] : "",
+                PercentagePrecip = PartialForecast[0].PrecipitationChance[offset * 2] != null ? PartialForecast[0].PrecipitationChance[offset * 2] : PartialForecast[0].PrecipitationChance[offset * 2 + 1],
+                Title = DayOfWeek[offset],
+                QuantityPercip = QuantityOfPreceipitation[offset]
             };
+
+            if (PartialForecast[0].IconCode[offset * 2].HasValue)
+            {
+                forecast.IconUrl = "https://icons.wxug.com/i/c/v4/" + PartialForecast[0].IconCode[offset * 2].ToString() + ".svg";
+            }
+            else
+            {
+                forecast.IconUrl = "https://icons.wxug.com/i/c/v4/" + PartialForecast[0].IconCode[offset * 2 + 1].ToString() + ".svg";
+            }
+
+            return forecast;
         }
 
         [DataMember(Name = "dayOfWeek")]
@@ -180,13 +191,13 @@ namespace msn2.net
         public string[] Narrative { get; set; }
 
         [DataMember(Name = "qpf")]
-        public decimal[] QuantityOfPreceipitation { get; set; }
+        public string[] QuantityOfPreceipitation { get; set; }
 
         [DataMember(Name = "temperatureMax")]
-        public int[] MaxTemperature { get; set; }
+        public string[] MaxTemperature { get; set; }
 
         [DataMember(Name = "temperatureMin")]
-        public int[] MinTemperature { get; set; }
+        public string[] MinTemperature { get; set; }
 
         [DataMember(Name = "daypart")]
         public FiveDayPartialForecast[] PartialForecast {get;set;}
@@ -197,7 +208,7 @@ namespace msn2.net
     public class FiveDayPartialForecast
     {
         [DataMember(Name = "cloudCover")]
-        public int[] CloudCoverPercentage { get; set; }
+        public string[] CloudCoverPercentage { get; set; }
 
         [DataMember(Name = "dayOrNight")]
         public string[] DayOrNight { get; set; }
@@ -206,19 +217,19 @@ namespace msn2.net
         public string[] Name { get; set; }
 
         [DataMember(Name = "iconCode")]
-        public int[] IconCode { get; set; }
+        public int?[] IconCode { get; set; }
 
         [DataMember(Name = "narrative")]
         public string[] Narrative { get; set; }
 
         [DataMember(Name = "precipChance")]
-        public int[] PrecipitationChance { get; set; }
+        public string[] PrecipitationChance { get; set; }
 
         [DataMember(Name="qpf")]
-        public decimal?[] PreceipitationQuantity { get; set; }
+        public string[] PreceipitationQuantity { get; set; }
 
         [DataMember(Name="temperature")]
-        public int[] Temperature { get; set; }
+        public string[] Temperature { get; set; }
 
         [DataMember(Name = "windPhrase")]
         public string[] WindPhrase { get; set; }
@@ -229,15 +240,15 @@ namespace msn2.net
         public string IconUrl { get; set; }
         public string Title { get; set; }
         public string ForecastText { get; set; }
-        public int PercentagePrecip { get; set; }
+        public string PercentagePrecip { get; set; }
 
-        public int High { get; set; }
+        public string High { get; set; }
 
-        public int Low { get; set; }
+        public string Low { get; set; }
 
         public string Conditions { get; set; }
 
-        public decimal QuantityPercip { get; set; }
+        public string QuantityPercip { get; set; }
 
     }
 
@@ -280,7 +291,7 @@ namespace msn2.net
         public string ForecastText { get; set; }
 
         [DataMember(Name = "pop")]
-        public int PercentagePercip { get; set; }
+        public string PercentagePercip { get; set; }
     }
 
     [DataContract]
@@ -312,7 +323,7 @@ namespace msn2.net
         public string IconUrl { get; set; }
 
         [DataMember(Name ="pop")]
-        public int PercentagePercip { get; set; }
+        public string PercentagePercip { get; set; }
 
         [DataMember(Name ="qpf_allday")]
         public PercipQuantity QuantityPercip { get; set; }
@@ -350,7 +361,7 @@ namespace msn2.net
     public class PercipQuantity
     {
         [DataMember(Name ="in")]
-        public decimal Quantity { get; set; }
+        public string Quantity { get; set; }
 
         public override string ToString()
         {
