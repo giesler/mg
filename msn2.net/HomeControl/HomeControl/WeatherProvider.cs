@@ -34,7 +34,14 @@ namespace msn2.net
         public IEnumerable<FullForecast> GetRandleForecastData()
         {
             string url = "https://api.weather.gov/gridpoints/SEW/129,68/forecast";
+//            url = "https://forecast.weather.gov/MapClick.php?lat=47.6387&lon=-122.1646&unit=0&lg=english";
             HttpWebResponse response = Get(url);
+
+            //using (var s = new StreamReader(response.GetResponseStream()))
+            //{
+            //    var r = s.ReadToEnd();
+            //    Console.Write(r);
+            //}
 
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Gridpoint));
 
@@ -42,7 +49,7 @@ namespace msn2.net
             var p = obj as Gridpoint;
 
             var list = new List<FullForecast>();
-            foreach (var period in p.Property.Periods.ToList())
+            foreach (var period in p.Periods.ToList())
             {
                 list.Add(new FullForecast
                 {
@@ -62,9 +69,11 @@ namespace msn2.net
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "GET";
             req.Proxy = null;
-            req.ContentType = "application/json";
-            req.UserAgent = "MS2N Development";
+//            req.ContentType = "application/json";
+            req.UserAgent = "(MS2N Development, giesler@live.com)";
+            req.Accept = "application/ld+json";
 
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             HttpWebResponse response = (HttpWebResponse)req.GetResponse();
             return response;
         }
@@ -96,13 +105,6 @@ namespace msn2.net
 
     [DataContract]
     public class Gridpoint
-    {
-        [DataMember(Name = "properties")]
-        public GridpointProperty Property {  get; set; }
-    }
-
-    [DataContract]
-    public class GridpointProperty
     {
         [DataMember(Name = "periods")]
         public ForecastPeriod[] Periods { get; set; }

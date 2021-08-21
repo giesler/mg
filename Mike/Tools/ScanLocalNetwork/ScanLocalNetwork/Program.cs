@@ -29,12 +29,12 @@ namespace ScanLocalNetwork
                     Log("192.168.1.{0},OK,{1}", i, response.ContentLength);                                        
                      */
                     Ping ping = new Ping();
-                    PingReply reply = ping.Send(IPAddress.Parse("192.168.1." + i.ToString()), (int)TimeSpan.FromSeconds(4).TotalMilliseconds);
-                    Log("192.168.1.{0},OK,{1}", i, reply.Status);                                        
+                    PingReply reply = ping.Send(IPAddress.Parse("192.168.4." + i.ToString()), (int)TimeSpan.FromSeconds(4).TotalMilliseconds);
+                    Log("192.168.4.{0},OK,{1}", i, reply.Status);                                        
                 }
                 catch (Exception ex)
                 {
-                    Log("192.168.1.{0},Exception,{1}", i, ex.Message);
+                    Log("192.168.4.{0},Exception,{1}", i, ex.Message);
                 }
             }            
         }
