@@ -7,18 +7,31 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="refresh" content="1500" />
     <meta name="viewport" content="width=device-width" />
     <link href="Styles.css" rel="stylesheet" type="text/css" />
     <title>MS2N Home</title>
     <link rel="SHORTCUT ICON" href="favicon.ico" />
+    <script language="javascript" type="text/javascript">
+        function OnReloadPage() {
+            try {
+                window.location.reload()
+                this.all.refreshError.innerText = ''
+            }
+            catch {
+                this.all.refreshError.innerText = $_
+                setTimeout(OnReloadPage, 10000)
+            }
+        }
+
+        setTimeout(OnReloadPage, 300000)
+    </script>
 </head>
 
 <body class="bodyStyle">
     <div class="headerLink" style="padding: 4px; border-bottom-color: silver;">
         <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="https://home.ms2n.net" style="color: deepskyblue">home</a> |
         <a href="https://cams.ms2n.net">cams</a>
-        <!-- | <a href="http://control.ms2n.net/">control</a> -->
+        <!-- | <a href="http://control.ms2n.net/">control</a> ffffffffff -->
     </div>
     <div style="clear: both; background-color: black;">
         <a class="smallthumb" href="https://cams.ms2n.net/?c=gdw" target="_blank">
@@ -186,10 +199,13 @@
                 home
             </div>
                 <a href="https://myhs.homeseer.com/" target="_blank">MyHS</a> | 
-            <a href="https://www.ecobee.com/consumerportal/#/devices/thermostats/521771879487" target="_blank">ecobee</a> | 
+            <a href="https://www.ecobee.com/consumerportal/" target="_blank">ecobee</a> | 
             <a href="https://my.netatmo.com/app/station" target="_blank">Netatmo</a> | 
 				<a href="https://app.rach.io/" target="_blank">Rachio</a>
         </div>
+    </div>
+    <div style="vertical-align: bottom; color: darkred">
+        <div id="refreshError"></div>
     </div>
 </body>
 </html>
