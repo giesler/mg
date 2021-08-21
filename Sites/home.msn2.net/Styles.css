@@ -1,0 +1,182 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0px;
+    color: silver;
+    background-color: black;
+    height: 100%;
+    font-size: large;
+    border: 0px;
+    margin: 0px;
+}
+
+@media screen and (max-width: 320px) {
+    @-ms-viewport {
+        width: 320px;
+    }
+}
+
+.fullImage {
+    width: 100%;
+    height: 100%;%
+}
+
+.leftFloat {
+    height: 100%;
+}
+
+.rightFloat {
+    float: right;
+    height: 100%;
+}
+
+A {
+    color: white;
+    text-decoration: none;
+}
+
+.thumb {
+    padding-right: 3px;
+    padding-bottom: 3px;
+}
+
+.smallthumb {
+    padding: 0px;
+    margin: 0px;
+    border-width: 0px;
+}
+
+A.disabledLink {
+    color: Gray;
+}
+
+.linkPanel {
+    float: right;
+    padding-right: 3px;
+}
+
+.panel {
+    height: 48px;
+    width: 64px;
+    font-size: smaller;
+    float: left;
+    padding: 2px;
+    text-align: center;
+}
+
+.smallNote {
+    font-size: medium;
+    color: gray;
+}
+
+.mainItem {
+    font-size: large;
+    font-weight: bold;
+}
+
+A:link {
+    text-decoration: none;
+    color: white;
+}
+
+.headerLink A:link {
+    text-decoration: none;
+    color: white;
+    background: black;
+    color: silver;
+    padding: 6px;
+    font-weight: bold;
+}
+
+.headerLink A:visited {
+    text-decoration: none;
+    color: white;
+    background: black;
+    padding: 6px;
+    font-weight: bold;
+}
+
+.subheader {
+    font-size: small;
+    padding-top: 4px;
+    margin-bottom: -2px;
+}
+
+.popupPanel {
+    position: fixed;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+    visibility: hidden;
+    background-color: #222222;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.9;
+}
+
+.popupButton {
+    width: 100px;
+    padding: 5px;
+    margin: 5px;
+    height: 30px;
+}
+
+.onOffButton {
+    width: 75px;
+    height: 30px;
+}
+
+.toggleButton {
+    width: 150px;
+    height: 30px;
+}
+
+.headerLink {
+    background-color: black;
+    color: white;
+}
+
+.subheader {
+    font-size: medium;
+    padding-top: 4px;
+    margin-bottom: -2px;
+}
+
+.weatherImg {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    height: 40px;
+}
+.minSpace {
+    border-spacing: 0px;
+}
+.loTemp {
+    color: lightskyblue;
+    font-size: large;
+}
+.hiTemp {
+    color: red;
+    font-size: large;
+}
+.buttonDiv {
+    float: right; 
+    margin-top: 10px; 
+    margin-right: 10px;
+}
+.precip {
+    font-size: small;
+    margin: 2px;
+}
+.icon {
+    padding: 2px;
+    height: 25px;
+    padding-right: 4px;
+}
+.weatherPanel {
+    float: left;
+    padding: 2px;
+    padding-left: 6px
+}

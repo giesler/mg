@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="633ae78c-5f7c-4a3d-9780-7f04b1bb680f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://hs.msn2.net:8808/DeviceControl.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DeviceControl.disco" MetadataType="Disco" ID="966c1b97-58b9-4fc5-8fa4-81402896f67b" SourceId="1" SourceUrl="http://hs.msn2.net:8808/DeviceControl.svc?disco" />
+    <MetadataFile FileName="DeviceControl.xsd" MetadataType="Schema" ID="e619f023-35ee-4607-b8d1-4116ef0bfe80" SourceId="1" SourceUrl="http://hs.msn2.net:8808/DeviceControl.svc?xsd=xsd2" />
+    <MetadataFile FileName="DeviceControl1.xsd" MetadataType="Schema" ID="f9e2a37a-dac4-442a-a014-5de19ae214ac" SourceId="1" SourceUrl="http://hs.msn2.net:8808/DeviceControl.svc?xsd=xsd1" />
+    <MetadataFile FileName="DeviceControl2.xsd" MetadataType="Schema" ID="dcff03a9-0820-4801-835d-8b9f979dbf0f" SourceId="1" SourceUrl="http://hs.msn2.net:8808/DeviceControl.svc?xsd=xsd0" />
+    <MetadataFile FileName="DeviceControl.wsdl" MetadataType="Wsdl" ID="4c0b05a3-3e0f-4292-97d1-920e28d5e8be" SourceId="1" SourceUrl="http://hs.msn2.net:8808/DeviceControl.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
