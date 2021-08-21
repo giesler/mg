@@ -73,7 +73,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "control.msn2.net", "http://
 		SlnRelativePath = "..\control.msn2.net\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeServices", "..\WakeOnLan\HomeServices\HomeServices.csproj", "{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeServices", "..\hs.ms2n.net\HomeServices.csproj", "{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

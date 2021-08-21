@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="HomeServices.DevicePower" CodeBehind="DevicePower.svc.cs" %>
