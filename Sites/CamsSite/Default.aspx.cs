@@ -21,7 +21,7 @@ public partial class _Default : System.Web.UI.Page
             HttpCookie cookie = Request.Cookies["Login"];
             if (cookie == null || cookie.Value != "1")
             {
-//                Response.Redirect("http://login.ms2n.net/?r=https://cams.ms2n.net");
+                Response.Redirect("http://login.ms2n.net/?r=https://cams.ms2n.net");
             }
         }
 
