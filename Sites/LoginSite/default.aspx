@@ -5,12 +5,12 @@
 <head runat="server">
     <title>MS2N Login</title>
     <meta name="viewport" content="width=device-width" /> 
-    <link href="https://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
+    <link href="https://home.ms2n.net/Styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="bodyStyle" style="color: white; background-color: black">
 
     <div class="headerLink">
-        <a href="http://www.msn2.net/">ms2n.net</a>: <a href="https://home.ms2n.net">home</a> | <a href="https://cams.ms2n.net/">cams</a> 
+        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="https://home.ms2n.net">home</a> | <a href="https://cams.ms2n.net/">cams</a> 
     </div>
     <br />
     <form id="form1" runat="server">

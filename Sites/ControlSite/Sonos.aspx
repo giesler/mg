@@ -7,7 +7,7 @@
     <title>MSN2 Control</title>
     <link rel="SHORTCUT ICON" href="favicon.ico" />
     <meta name="viewport" content="width=device-width" />
-    <link href="http://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
+    <link href="http://home.ms2n.net/Styles.css" rel="stylesheet" type="text/css" />
     <style>       
         A:link {
             text-decoration: none;
@@ -27,7 +27,7 @@
 <body style="background-color: black;">
     <form id="form1" runat="server">
         <div class="headerLink" style="padding: 4px">
-            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="/" style="color:deepskyblue">control</a>
+            <a href="http://www.ms2n.net/">msn2.net</a>: <a href="http://home.ms2n.net">home</a> | <a href="http://cams.ms2n.net/">cams</a> |  <a href="/" style="color:deepskyblue">control</a>
         </div>
         <div style="font-weight: bolder; padding: 6px; margin-top: 5px; margin-bottom: 5px">
             <a href="/?g=switches" style="padding: 4px">switches</a>&nbsp; | 

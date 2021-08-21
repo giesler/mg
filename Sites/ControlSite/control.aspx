@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>MS2N Control</title>
-    <link href="http://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
+    <link href="http://home.ms2n.net/Styles.css" rel="stylesheet" type="text/css" />
     <link rel="SHORTCUT ICON" href="favicon.ico" />
     <meta name="viewport" content="width=device-width" /></head>
     <style>

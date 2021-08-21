@@ -55,7 +55,7 @@ public partial class _Default : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
-//        this.main.ImageUrl = string.Format("http://cam1.msn2.net:8808/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
+//        this.main.ImageUrl = string.Format("http://cam1.ms2n.net:8808/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
     }
 
     protected string GetCam()
