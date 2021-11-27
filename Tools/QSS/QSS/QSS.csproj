@@ -100,9 +100,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,7 +110,7 @@
     <Resource Include="images.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HomeControl\HomeControl\HomeControl.csproj">
+    <ProjectReference Include="..\..\..\Common\HomeControl\HomeControl.csproj">
       <Project>{01f4c656-be28-4241-beeb-42457c1a5dd1}</Project>
       <Name>HomeControl</Name>
     </ProjectReference>

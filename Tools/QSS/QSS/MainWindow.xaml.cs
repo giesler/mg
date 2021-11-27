@@ -32,7 +32,7 @@ namespace msn2.net
 
         Timer timer = null;
         bool showInfo = false;
-        int interval = 30;
+        int interval = 15;
         Point? lastMousePoint = null;
         bool randomMode = true;
         bool paused = false;
@@ -53,6 +53,7 @@ namespace msn2.net
             //this.Path = @"d:\localdata\xm";
             this.Path = @"d:\onedrive\pictures\store";
             this.Path = @"c:\pictures";
+            this.Path = @"c:\nr";
 
             foreach (string arg in args)
             {
@@ -79,11 +80,12 @@ namespace msn2.net
 
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
             ThreadPool.QueueUserWorkItem(this.LoadWeatherData, null);
-            ThreadPool.QueueUserWorkItem(this.LoadSonosData, null);
+// bugbug - broken with latest sonos version            ThreadPool.QueueUserWorkItem(this.LoadSonosData, null);
 
             this.insideGrid.Visibility = Visibility.Collapsed;
             this.outsideGrid.Visibility = Visibility.Collapsed;
             this.sonosGrid.Visibility = Visibility.Collapsed;
+            this.forecastGrid.Visibility = Visibility.Collapsed;
 
             this.Cursor = Cursors.None;
             this.ForceCursor = true;
@@ -97,6 +99,10 @@ namespace msn2.net
             this.loadCompleteCheck.Tick += new EventHandler(this.OnLoadCompleteCheck);
 
             Trace.WriteLine("MainWindow ctor complete");
+
+            this.timeLabel.Content = DateTime.Now.ToString("t");
+            this.dayLabel.Content = DateTime.Now.ToString("dddd");
+            this.dateLabel.Content = DateTime.Now.ToString("M");
         }
 
         private void LoadWeatherData(object j)
@@ -106,6 +112,7 @@ namespace msn2.net
 
             WeatherProvider weather = new WeatherProvider();
             DateTime lastWeatherUpdate = DateTime.MinValue;
+            var lastForecastUpdate = DateTime.MinValue;
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
@@ -134,6 +141,20 @@ namespace msn2.net
                 catch (Exception ex)
                 {
                     Trace.WriteLine("Error loading weather provider data: " + ex.ToString());
+                }
+
+                try
+                {
+                    if (lastForecastUpdate.AddMinutes(60) < DateTime.Now)
+                    {
+                        var wr = weather.GetForecastData();
+                        this.Dispatcher.Invoke(new TimerCallback(this.ShowForecastData), wr);
+                        lastForecastUpdate = DateTime.Now;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Error loading weather forecast data: " + ex.ToString());
                 }
 
                 Trace.WriteLine("Weather data load complete");
@@ -194,15 +215,61 @@ namespace msn2.net
             this.insideMinDecimal.Text = (insideMinF % 1.0 * 10.0).ToString("0");
             this.insideHumidity.Text = data.DashboardData.Humidity.ToString();
 
-            this.outsideDriveway.Source = new Uri("http://ddns.msn2.net:8808/getimg.aspx?c=dw1&h=64&id=qss" + new Random().Next(1000000).ToString("00000000"));
+            string address = string.Format("https://cam2.ms2n.net:8443/getimg.aspx?c=gdw&h=64&ts={0}", DateTime.Now.ToString("yymmddhhmmsstt"));
+
+//            var camUri = new Uri("https://cams.ms2n.net/getimg.aspx?c=gdw&h=64&id=qss&ts=" + new Random().Next(1000000).ToString("00000000"));
+//            this.outsideDriveway.Source =  new Uri(address);
         }
 
         private void ShowWeatherProviderData(object s)
         {
             WeatherResponse wr = (WeatherResponse)s;
 
-            this.feelsLike.Text = ((int)wr.WeatherObservation.FeelLikeF).ToString();
-            this.feelslikeDecimal.Text = (wr.WeatherObservation.FeelLikeF % 1.0 * 10.0).ToString("0");
+            if (wr.WeatherObservation != null)
+            {
+                this.feelsLike.Text = ((int)wr.WeatherObservation.FeelLikeF).ToString();
+                this.feelslikeDecimal.Text = (wr.WeatherObservation.FeelLikeF % 1.0 * 10.0).ToString("0");
+            }
+            else
+            {
+                this.feelsLike.Text = "error";
+            }
+        }
+
+        private void ShowForecastData(object s)
+        {
+            var wr = (FiveDayForecast)s;
+
+            this.day1Image.Source = GetForecastImage(wr.PartialForecast[0].IconCode[0]);
+            this.day1Hi.Text = wr.MaxTemperature[0];
+            this.day1Low.Text = wr.MinTemperature[0];
+
+            this.day2Image.Source = GetForecastImage(wr.PartialForecast[0].IconCode[1]);
+            this.day2Name.Text = wr.DayOfWeek[1].Substring(0, 3).ToUpper();
+            this.day2Hi.Text = wr.MaxTemperature[1] == null ? "-" : wr.MaxTemperature[1];
+            this.day2Low.Text = wr.MinTemperature[1];
+
+            this.day3Image.Source = GetForecastImage(wr.PartialForecast[0].IconCode[2]);
+            this.day3Name.Text = wr.DayOfWeek[2].Substring(0, 3).ToUpper();
+            this.day3Hi.Text = wr.MaxTemperature[2];
+            this.day3Low.Text = wr.MinTemperature[2];
+
+            this.day4Image.Source = GetForecastImage(wr.PartialForecast[0].IconCode[3]);
+            this.day4Name.Text = wr.DayOfWeek[3].Substring(0, 3).ToUpper();
+            this.day4Hi.Text = wr.MaxTemperature[3];
+            this.day4Low.Text = wr.MinTemperature[3];
+
+    //    this.forecastGrid.Visibility = Visibility.Visible;
+        }
+
+        BitmapImage GetForecastImage(int? icon)
+        {
+            if (icon.HasValue == false)
+            {
+                return null;
+            }
+
+            return new BitmapImage(new Uri("https://icons.wxug.com/i/c/v4/" + icon.Value.ToString() + ".svg"));
         }
 
         private void LoadSonosData(object d)

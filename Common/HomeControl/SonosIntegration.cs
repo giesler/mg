@@ -13,8 +13,8 @@ namespace msn2.net
 {
     public class SonosIntegration
     {
-        static string defaultZoneName = "Kitchen";
-        static string defaultZoneIp = "192.168.1.67";
+        static string defaultZoneName = "Media Room";
+        static string defaultZoneIp = "192.168.4.44";
 
         public static SonosPlayingData GetPlayingData()
         {
