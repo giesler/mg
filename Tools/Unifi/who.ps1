@@ -17,10 +17,10 @@ $uHeaders = @{"Content-Type" = "application/json" }
 
 # Allow connection with the Unifi Self Signed Cert
 try {
-    [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+    [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy 
 }
 catch {
-    Write-Host "Error - $_"
+#    Write-Host "Error - $_"
 
     Add-Type @"
 using System.Net;
@@ -155,3 +155,5 @@ if ($uLogin.meta.rc.Equals("ok")) {
 else {
     Write-Host -ForegroundColor Red "Unsuccessfull in authenticating to $($uController) as $($uUsername)"
 }
+
+Read-Host "done"
