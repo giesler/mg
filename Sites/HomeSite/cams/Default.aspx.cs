@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 public partial class _Default : System.Web.UI.Page
 {
     string cam = "1";
-    bool loggedIn = false;
     List<CamView> thumbViews = new List<CamView>();
 
     protected override void OnInit(EventArgs e)
@@ -21,7 +20,7 @@ public partial class _Default : System.Web.UI.Page
             HttpCookie cookie = Request.Cookies["Login"];
             if (cookie == null || cookie.Value != "1")
             {
-                Response.Redirect("http://login.ms2n.net/?r=https://cams.ms2n.net");
+                Response.Redirect("/login/?r=/cams/");
             }
         }
 
@@ -36,7 +35,6 @@ public partial class _Default : System.Web.UI.Page
 //        this.controlLink1.Visible = true;
 //        this.controlLink2.Visible = true;
 //        this.logLinkSeperator0.Visible = true;
-        this.logLinkSeperator3.Visible = true;
 //        this.logLinkSeperator4.Visible = true;
         this.logLinkSeperator5.Visible = true;
         this.cam = "gdw";
@@ -118,7 +116,7 @@ public partial class _Default : System.Web.UI.Page
             Image image = (Image)e.Item.FindControl("thumbImage");
             
             link.NavigateUrl = string.Format("./?c={0}", view.Cameras[0].Id);
-            image.ImageUrl = string.Format("getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
+            image.ImageUrl = string.Format("../getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
         }
     }
 }

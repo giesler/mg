@@ -10,7 +10,7 @@
 <body class="bodyStyle" style="color: white; background-color: black">
 
     <div class="headerLink">
-        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="https://home.ms2n.net">home</a> | <a href="https://cams.ms2n.net/">cams</a> 
+        <a href="/">home</a> | <a href="/cams/">cams</a> 
     </div>
     <br />
     <form id="form1" runat="server">

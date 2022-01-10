@@ -5,9 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>MS2N Cams</title>
-    <link href="Styles.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" /> 
-    <link rel="SHORTCUT ICON" href="favicon.ico" />
+    <link rel="SHORTCUT ICON" href="../favicon.ico" />
 </head>
 <body>
     <form id="form1" runat="server" style="height: 100%">
@@ -19,10 +19,8 @@
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
-        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="https://home.ms2n.net/" Visible="false" Text="home" />
+        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="/" Visible="false" Text="home" />
         <asp:Label runat="server" ID="logLinkSeperator0" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="http://control.ms2n.net/" Text="control" Visible="false" /> 
-        <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="https://nas.ms2n.net:58433/webman/3rdparty/SurveillanceStation/" Text="nas" Visible="false" /> 
     </asp:Panel>
     <div style="height: 100%">
@@ -31,10 +29,8 @@
         </asp:Panel>
     </div>
     <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
-        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="https://home.ms2n.net/" Visible="false" Text="home" />
+        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="/" Visible="false" Text="home" />
         <asp:Label runat="server" ID="logLinkSeperator5" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="http://control.ms2n.net/" Text="control" Visible="false" /> 
-        <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="https://nas.ms2n.net:58433/webman/3rdparty/SurveillanceStation/" Text="nas" Visible="false" /> 
     </asp:Panel>
 
@@ -58,7 +54,7 @@
                 mainTimer = 0;
             }
                 
-            tmp = "getimg.aspx?ts=" + tmp.getTime() + "&c=" + cam.toString();
+            tmp = "../getimg.aspx?ts=" + tmp.getTime() + "&c=" + cam.toString();
             
             window.status = "Auto refresh enabled";
             try {

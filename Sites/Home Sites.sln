@@ -27,48 +27,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HomeSite", "HomeSite\", "{B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeControl", "..\Common\HomeControl\HomeControl.csproj", "{01F4C656-BE28-4241-BEEB-42457C1A5DD1}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LoginSite", "LoginSite\", "{E9970761-DD08-4EC8-A49B-2A7030EEDB84}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_54831"
-		Debug.AspNetCompiler.PhysicalPath = "LoginSite\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54831\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_54831"
-		Release.AspNetCompiler.PhysicalPath = "LoginSite\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54831\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "54831"
-		SlnRelativePath = "LoginSite\"
-	EndProjectSection
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CamsSite", "CamsSite\", "{81BD6E26-BD33-45F8-A93F-1D52403BE420}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_56267"
-		Debug.AspNetCompiler.PhysicalPath = "CamsSite\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56267\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_56267"
-		Release.AspNetCompiler.PhysicalPath = "CamsSite\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56267\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "56267"
-		SlnRelativePath = "CamsSite\"
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,18 +46,6 @@ Global
 		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.NoPhone|Any CPU.Build.0 = Release|Any CPU
 		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9970761-DD08-4EC8-A49B-2A7030EEDB84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9970761-DD08-4EC8-A49B-2A7030EEDB84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9970761-DD08-4EC8-A49B-2A7030EEDB84}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9970761-DD08-4EC8-A49B-2A7030EEDB84}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
-		{E9970761-DD08-4EC8-A49B-2A7030EEDB84}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9970761-DD08-4EC8-A49B-2A7030EEDB84}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{81BD6E26-BD33-45F8-A93F-1D52403BE420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81BD6E26-BD33-45F8-A93F-1D52403BE420}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81BD6E26-BD33-45F8-A93F-1D52403BE420}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
-		{81BD6E26-BD33-45F8-A93F-1D52403BE420}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
-		{81BD6E26-BD33-45F8-A93F-1D52403BE420}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{81BD6E26-BD33-45F8-A93F-1D52403BE420}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

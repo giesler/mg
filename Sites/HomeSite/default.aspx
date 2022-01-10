@@ -29,26 +29,22 @@
 
 <body class="bodyStyle">
     <div class="headerLink" style="padding: 4px; border-bottom-color: silver;">
-        <a href="http://www.ms2n.net/">ms2n.net</a>: <a href="https://home.ms2n.net" style="color: deepskyblue">home</a> |
-        <a href="https://cams.ms2n.net">cams</a>
+        <a href="/" style="color: deepskyblue">home</a> |
+        <a href="/cams/">cams</a>
         <!-- | <a href="http://control.ms2n.net/">control</a> ffffffffff -->
     </div>
     <div style="clear: both; background-color: black;">
-        <a class="smallthumb" href="https://cams.ms2n.net/?c=gdw" target="_blank">
-            <img class="smallthumb" src="https://svcs.ms2n.net:8443/getimg.aspx?c=gdw&amp;h=128&amp;id=th" style="height: 128px; width: 200px" /></a>
-        <a class="smallthumb" href="https://cams.ms2n.net/?c=dwety" target="_blank">
-            <img class="smallthumb" src="https://svcs.ms2n.net:8443/getimg.aspx?c=dwety&amp;h=128&amp;id=th" style="height: 128px; width: 200px" /></a>
-        <!--<a class="smallthumb" href="http://cams.ms2n.net/?c=side" target="_blank">
-            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
-        <a class="smallthumb" href="http://cams.ms2n.net/?c=gdoor" target="_blank">
-            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
-        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopTop" target="_blank">
-            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopTop&amp;h=64&amp;id=th" style="height: 64px; width: 102px" /></a>
-        <a class="smallthumb" href="http://cams.ms2n.net/?c=CoopDoor" target="_blank">
-            <img class="smallthumb" src="http://cams.ms2n.net/getimg.aspx?c=CoopDoor&amp;h=64&amp;id=th" style="height: 64px; width: 113px" /></a>
+        <a class="smallthumb" href="/cams/?c=gdw" target="_blank">
+            <img class="smallthumb" src="https://svcs.ms2n.net:8443/getimg.aspx?c=gdw&amp;h=128&amp;id=th" style="height: 128px; width: 200px" alt="cam1"/></a>
+        <a class="smallthumb" href="/cams/?c=dwety" target="_blank">
+            <img class="smallthumb" src="https://svcs.ms2n.net:8443/getimg.aspx?c=dwety&amp;h=128&amp;id=th" style="height: 128px; width: 200px" alt="cam2" /></a>
+        <!--<a class="smallthumb" href="/cams/?c=side" target="_blank">
+            <img class="smallthumb" src="/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
+        <a class="smallthumb" href="/cams/?c=gdoor" target="_blank">
+            <img class="smallthumb" src="/getimg.aspx?c=gdoor&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
 -->
         <a class="smallthumb" href="https://www.wsdot.wa.gov/aviation/WebCam/Packwood.htm" target="_blank">
-            <img class="smallthumb" src="https://images.wsdot.wa.gov/airports/packwood5.jpg" style="height: 128px; width: 223px;" /></a>
+            <img class="smallthumb" src="https://images.wsdot.wa.gov/airports/packwood5.jpg" style="height: 128px; width: 223px;" alt="packwood" /></a>
     </div>
     <asp:Panel runat="server" ID="errorPanel" Visible="false" ForeColor="DarkRed">
         <asp:Label runat="server" ID="error" />

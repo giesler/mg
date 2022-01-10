@@ -79,7 +79,7 @@ public partial class Login : System.Web.UI.Page
     {
         HttpCookie cookie = new HttpCookie("Login", "1");
         cookie.Expires = expire;
-        cookie.Domain = "ms2n.net";
+   //     cookie.Domain = "ms2n.net";
 
         Response.AppendCookie(cookie);
 
@@ -89,7 +89,7 @@ public partial class Login : System.Web.UI.Page
         }
         else
         {
-            Response.Redirect("http://www.ms2n.net/");
+            Response.Redirect("/");
         }
     }
 }
