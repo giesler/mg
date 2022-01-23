@@ -81,13 +81,24 @@
                                 <td>media room</td>
                                 <td>&nbsp;</td>
                                 <td>north mstr</td>
+                                <td>&nbsp;</td>
+                                <td>wtr clst</td>
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <asp:Label ID="mediaRoomCurrent" runat="server" Font-Size="X-Large" /></td>
+                                    <asp:Label ID="mediaRoomCurrent" runat="server" Font-Size="X-Large" /><br />
+                                    <asp:Label ID="mediaRoomCO" runat="server" Font-Size="X-Small" />
+                                </td>
                                 <td>&nbsp;</td>
                                 <td align="center">
-                                    <asp:Label ID="bedroomCurrent" runat="server" Font-Size="X-Large" /></td>
+                                    <asp:Label ID="bedroomCurrent" runat="server" Font-Size="X-Large" /><br />
+                                    <asp:Label ID="bedroomCO" runat="server" Font-Size="X-Small" />
+                                </td>
+                                <td>&nbsp;</td>
+                                <td align="center">
+                                    <asp:Label ID="waterClosetCurrent" runat="server" Font-Size="X-Large" /><br />
+                                    <asp:Label ID="waterClosetCO" runat="server" Font-Size="X-Small" />
+                                </td>
                             </tr>
                         </table>
                     </td>
@@ -194,6 +205,7 @@
             <div style="width: 100%; border-bottom: solid silver 1px">
                 home
             </div>
+                <a href="https://mysecurity.eufylife.com/#/camera" target="_blank">Eufy</a> | 
                 <a href="https://myhs.homeseer.com/" target="_blank">MyHS</a> | 
             <a href="https://www.ecobee.com/consumerportal/" target="_blank">ecobee</a> | 
             <a href="https://my.netatmo.com/app/station" target="_blank">Netatmo</a> | 

@@ -72,7 +72,7 @@ public partial class _Default : System.Web.UI.Page
             HttpContext.Current.Cache.Add(RandleCacheKey, randleData, null, DateTime.Now.AddMinutes(90), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
         }
 
-        Module outside = deviceData.Modules.First(i => i.ModuleName == "Outdoor");
+        Module outside = deviceData.Modules.First(i => i.ModuleName == "Outside");
         float outsideF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.Temperature);
         this.outsideCurrent.Text = ((int)outsideF).ToString("0");
 
@@ -82,30 +82,25 @@ public partial class _Default : System.Web.UI.Page
             outsideImage.AlternateText = weatherData.WeatherObservation.Weather;
         }
 
-        //        this.outsideTrend.Text = GetTrend(outside.DashboardData).Trim();
-
         float outsideMaxF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MaxTemp);
         this.outsideHigh.Text = ((int)outsideMaxF).ToString("0");
-
+        
         float outsideMinF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MinTemp);
         this.outsideLow.Text = ((int)outsideMinF).ToString("0");
-        //this.outsideHumidity.Text = outside.DashboardData.Humidity.ToString();
 
         float insideF = NetatmoIntegration.GetFahrenheit(deviceData.DashboardData.Temperature);
         this.mediaRoomCurrent.Text = ((int)insideF).ToString("0");
-        //this.insideTrend.Text = GetTrend(data.DashboardData).Trim();
-
-        //this.insideHumidity.Text = data.DashboardData.Humidity.ToString();
-
-
+        this.mediaRoomCO.Text = deviceData.DashboardData.CO2.ToString("0");
 
         Module bedroom = deviceData.Modules.First(i => i.ModuleName == "North Master");
         float bedroomF = NetatmoIntegration.GetFahrenheit(bedroom.DashboardData.Temperature);
         this.bedroomCurrent.Text = ((int)bedroomF).ToString("0");
+        this.bedroomCO.Text = bedroom.DashboardData.CO2.ToString("0");
 
-        //        this.bedroomTrend.Text = GetTrend(bedroom.DashboardData).Trim();
-
-        //this.outsideHumidity.Text = outside.DashboardData.Humidity.ToString();
+        Module waterCloset = deviceData.Modules.First(i => i.ModuleName == "Water Closet");
+        float waterClosetF = NetatmoIntegration.GetFahrenheit(waterCloset.DashboardData.Temperature);
+        this.waterClosetCurrent.Text = ((int)waterClosetF).ToString("0");
+        this.waterClosetCO.Text = waterCloset.DashboardData.CO2.ToString("0");
 
         var day = DateTime.Now.DayOfWeek;
 
