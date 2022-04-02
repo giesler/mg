@@ -19,7 +19,7 @@ public partial class _Default : System.Web.UI.Page
             HttpCookie cookie = Request.Cookies["Login"];
             if (cookie == null || cookie.Value != "1")
             {
-                Response.Redirect("/login/?r=http://home.ms2n.net/");
+                Response.Redirect("/login/?r=https://home.giesler.org/");
             }
         }
 

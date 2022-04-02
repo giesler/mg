@@ -27,6 +27,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HomeSite", "HomeSite\", "{B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeControl", "..\Common\HomeControl\HomeControl.csproj", "{01F4C656-BE28-4241-BEEB-42457C1A5DD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeServices", "HomeServices\HomeServices.csproj", "{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,12 @@ Global
 		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.NoPhone|Any CPU.Build.0 = Release|Any CPU
 		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.NoPhone|Any CPU.ActiveCfg = NoPhone|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.NoPhone|Any CPU.Build.0 = NoPhone|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

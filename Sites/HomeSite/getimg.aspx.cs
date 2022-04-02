@@ -29,8 +29,7 @@ public partial class getimg : System.Web.UI.Page
             rotate = true;
         }
 
-        int random = new Random().Next(1, 5);
-        string address = string.Format("https://cam{0}.ms2n.net:8443/getimg.aspx?c={1}&r={2}&ts={3}", random, cam, rotate ? "1" : "0", DateTime.Now.ToString("yymmddhhmmsstt"));
+        string address = string.Format("https://svcs.giesler.org:8443/getimg.aspx?c={0}&r={1}&ts={2}", cam, rotate ? "1" : "0", DateTime.Now.ToString("yymmddhhmmsstt"));
         
         int maxHeight = 0;
         if (Request.QueryString["h"] != null)

@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HomeServices</RootNamespace>
     <AssemblyName>HomeServices</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -150,7 +150,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeControl\HomeControl\HomeControl.csproj">
+    <ProjectReference Include="..\..\Common\HomeControl\HomeControl.csproj">
       <Project>{01f4c656-be28-4241-beeb-42457c1a5dd1}</Project>
       <Name>HomeControl</Name>
     </ProjectReference>

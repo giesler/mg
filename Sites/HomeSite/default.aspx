@@ -9,7 +9,7 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="viewport" content="width=device-width" />
     <link href="Styles.css" rel="stylesheet" type="text/css" />
-    <title>MS2N Home</title>
+    <title>home.giesler.org</title>
     <link rel="SHORTCUT ICON" href="favicon.ico" />
     <script language="javascript" type="text/javascript">
         function OnReloadPage() {
@@ -35,9 +35,9 @@
     </div>
     <div style="clear: both; background-color: black;">
         <a class="smallthumb" href="/cams/?c=gdw" target="_blank">
-            <img class="smallthumb" src="https://svcs.ms2n.net:8443/getimg.aspx?c=gdw&amp;h=128&amp;id=th" style="height: 128px; width: 200px" alt="cam1"/></a>
+            <img class="smallthumb" src="https://svcs.giesler.org:8443/getimg.aspx?c=gdw&amp;h=128&amp;id=th" style="height: 128px; width: 200px" alt="cam1"/></a>
         <a class="smallthumb" href="/cams/?c=dwety" target="_blank">
-            <img class="smallthumb" src="https://svcs.ms2n.net:8443/getimg.aspx?c=dwety&amp;h=128&amp;id=th" style="height: 128px; width: 200px" alt="cam2" /></a>
+            <img class="smallthumb" src="https://svcs.giesler.org:8443/getimg.aspx?c=dwety&amp;h=128&amp;id=th" style="height: 128px; width: 200px" alt="cam2" /></a>
         <!--<a class="smallthumb" href="/cams/?c=side" target="_blank">
             <img class="smallthumb" src="/getimg.aspx?c=side&amp;h=64&amp;id=th" style="height: 64px; width: 85px" /></a>
         <a class="smallthumb" href="/cams/?c=gdoor" target="_blank">

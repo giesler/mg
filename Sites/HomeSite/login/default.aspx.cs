@@ -23,7 +23,7 @@ public partial class Login : System.Web.UI.Page
         {
             try
             {
-                homeIps = Dns.GetHostAddresses("ddns.ms2n.net");
+                homeIps = Dns.GetHostAddresses("ddns.giesler.org");
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ public partial class Login : System.Web.UI.Page
                     }
                     else
                     {
-                        this.username.Text = "home";
+                        this.username.Text = "ms";
                     }
                 }
             }
@@ -52,7 +52,7 @@ public partial class Login : System.Web.UI.Page
 
     protected void OnLogin(object sender, EventArgs e)
     {
-        if (this.username.Text.ToLower() == "home" && this.password.Text == "4362")
+        if (this.username.Text.ToLower() == "ms" && this.password.Text == "1006")
         {
             LoginWithExpiration(DateTime.Now.AddYears(1));
         }
