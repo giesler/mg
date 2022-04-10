@@ -77,6 +77,7 @@
     <None Include="Service References\CamData\configuration.svcinfo" />
     <Content Include="getimg.aspx" />
     <Content Include="getvid.aspx" />
+    <Content Include="HomeSeerStatus.aspx" />
     <Content Include="HS3DeviceControl.aspx" />
     <Content Include="Service References\CamData\HomeServices.CamData.LogItem.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -111,6 +112,13 @@
     </Compile>
     <Compile Include="getvid.aspx.designer.cs">
       <DependentUpon>getvid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HomeSeerStatus.aspx.cs">
+      <DependentUpon>HomeSeerStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HomeSeerStatus.aspx.designer.cs">
+      <DependentUpon>HomeSeerStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="HS3DeviceControl.aspx.cs">
       <DependentUpon>HS3DeviceControl.aspx</DependentUpon>

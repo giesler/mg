@@ -30,13 +30,12 @@ namespace HomeServices
                 throw new ArgumentNullException("v");
             }
 
-            string url = string.Format("http://192.168.1.210:8888/JSON?request=controldeviceby{0}&ref={1}&{0}={2}", by, id, v);
+            string url = string.Format("http://hs2:8080/JSON?request=controldeviceby{0}&ref={1}&{0}={2}", by, id, v);
 
             HttpWebRequest request = HttpWebRequest.CreateHttp(url);
             var response = request.GetResponse();
 
             HttpContext.Current.Response.Write(response.ToString());
-
         }
     }
 }

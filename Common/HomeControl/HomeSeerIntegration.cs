@@ -4,122 +4,131 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace msn2.net.HomeSeer
 {
     public class HomeSeerIntegration
-    { 
+    {
         public Root GetHomeSeerDeviceStatus()
+        {
+            var items = JsonConvert.DeserializeObject<Root>(GetHomeSeerDeviceStatusJson());
+            return items;
+        }
+
+        public string GetHomeSeerDeviceStatusJson()
         {
             var itemReq = HttpWebRequest.CreateHttp("http://hs2:8080/JSON?request=getstatus");
             var itemResponse = itemReq.GetResponse();
             using (var data = itemResponse.GetResponseStream())
             {
                 using (var reader = new StreamReader(data))
-                {
+                {                    
                     string resposneString = reader.ReadToEnd();
-                    var items = JsonConvert.DeserializeObject<Root>(resposneString);
-                    return items;
+                    return resposneString;
                 }
             }
         }
     }
 
+    [DataContract]
     public class DeviceType
     {
-        [JsonProperty("Device_API")]
+        [DataMember(Name = "Device_API")]
         public int DeviceAPI { get; set; }
 
-        [JsonProperty("Device_API_Description")]
+        [DataMember(Name = "Device_API_Description")]
         public string DeviceAPIDescription { get; set; }
 
-        [JsonProperty("Device_Type")]
+        [DataMember(Name = "Device_Type")]
         public int DeviceTypeId { get; set; }
 
-        [JsonProperty("Device_Type_Description")]
+        [DataMember(Name = "Device_Type_Description")]
         public string DeviceTypeDescription { get; set; }
 
-        [JsonProperty("Device_SubType")]
+        [DataMember(Name = "Device_SubType")]
         public int DeviceSubType { get; set; }
 
-        [JsonProperty("Device_SubType_Description")]
+        [DataMember(Name = "Device_SubType_Description")]
         public string DeviceSubTypeDescription { get; set; }
     }
 
+    [DataContract]
     public class Device
     {
-        [JsonProperty("ref")]
+        [DataMember(Name = "ref")]
         public int Ref { get; set; }
 
-        [JsonProperty("name")]
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [JsonProperty("location")]
+        [DataMember(Name = "location")]
         public string Location { get; set; }
 
-        [JsonProperty("location2")]
+        [DataMember(Name = "location2")]
         public string Location2 { get; set; }
 
-        [JsonProperty("value")]
+        [DataMember(Name = "value")]
         public double Value { get; set; }
 
-        [JsonProperty("status")]
+        [DataMember(Name = "status")]
         public string Status { get; set; }
 
-        [JsonProperty("device_type_string")]
+        [DataMember(Name = "device_type_string")]
         public string DeviceTypeString { get; set; }
 
-        [JsonProperty("last_change")]
+        [DataMember(Name = "last_change")]
         public DateTime LastChange { get; set; }
 
-        [JsonProperty("relationship")]
+        [DataMember(Name = "relationship")]
         public int Relationship { get; set; }
 
-        [JsonProperty("hide_from_view")]
+        [DataMember(Name = "hide_from_view")]
         public bool HideFromView { get; set; }
 
-        [JsonProperty("associated_devices")]
+        [DataMember(Name = "associated_devices")]
         public List<int> AssociatedDevices { get; set; }
 
-        [JsonProperty("device_type")]
+        [DataMember(Name = "device_type")]
         public DeviceType DeviceType { get; set; }
 
-        [JsonProperty("device_type_values")]
+        [DataMember(Name = "device_type_values")]
         public object DeviceTypeValues { get; set; }
 
-        [JsonProperty("UserNote")]
+        [DataMember(Name = "UserNote")]
         public string UserNote { get; set; }
 
-        [JsonProperty("UserAccess")]
+        [DataMember(Name = "UserAccess")]
         public string UserAccess { get; set; }
 
-        [JsonProperty("status_image")]
+        [DataMember(Name = "status_image")]
         public string StatusImage { get; set; }
 
-        [JsonProperty("voice_command")]
+        [DataMember(Name = "voice_command")]
         public string VoiceCommand { get; set; }
 
-        [JsonProperty("misc")]
+        [DataMember(Name = "misc")]
         public int Misc { get; set; }
 
-        [JsonProperty("interface_name")]
+        [DataMember(Name = "interface_name")]
         public string InterfaceName { get; set; }
     }
 
+    [DataContract]
     public class Root
     {
-        [JsonProperty("Name")]
+        [DataMember(Name = "Name")]
         public string Name { get; set; }
 
-        [JsonProperty("Version")]
+        [DataMember(Name = "Version")]
         public string Version { get; set; }
 
-        [JsonProperty("TempFormatF")]
+        [DataMember(Name = "TempFormatF")]
         public bool TempFormatF { get; set; }
 
-        [JsonProperty("Devices")]
+        [DataMember(Name = "Devices")]
         public List<Device> Devices { get; set; }
     }
 }
