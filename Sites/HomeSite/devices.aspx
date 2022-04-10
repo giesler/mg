@@ -7,6 +7,11 @@
     <title>devices</title>
     <link href="https://home.giesler.org/Styles.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" /> 
+    <script type="text/javascript">
+        function toggleItem() {
+            document.all['sendingPanel'].style.visibility = 'visible';
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,6 +23,11 @@
             <div style="width: 100%; border-bottom: solid silver 1px">
                 status
             </div>
+            <asp:Panel runat="server" ID="sendingPanel" CssClass="popupPanel">
+                <br />
+                <br />
+                <img src="loading.gif" height="30" />
+            </asp:Panel>
             <div>
                 <smaller>
                     <table cellpadding="2" cellspacing="0">
@@ -25,15 +35,15 @@
                             <td rowspan="2" style="vertical-align:top; padding-right: 6px;"><small>locks:</small></td>
                             <td style="padding-right: 6px"><small>porch:</small></td>
                             <td>
-                                <small><asp:LinkButton Text="kitchen" runat="server" id="patioKitchenLockAction" OnClick="patioKitchenLockActionClick" /></small> | 
-                                <small><asp:LinkButton Text="garage" runat="server" id="patioGarageLockAction" OnClick="patioGarageLockActionClick" /></small>
+                                <small><asp:LinkButton Text="kitchen" runat="server" id="patioKitchenLockAction" OnClick="patioKitchenLockActionClick" OnClientClick="toggleItem();" /></small> | 
+                                <small><asp:LinkButton Text="garage" runat="server" id="patioGarageLockAction" OnClick="patioGarageLockActionClick" OnClientClick="toggleItem();" /></small>
                             </td>
                         </tr>
                         <tr>
                             <td><small>garage:</small></td>
                             <td>
-                                <small><asp:LinkButton Text="backyard" runat="server" id="garageBackLockAction" OnClick="garageBackLockActionClick" /></small> |
-                                <small><asp:LinkButton Text="tack room" runat="server" id="garageInsideLockAction" OnClick="garageInsideLockActionClick" /></small>
+                                <small><asp:LinkButton Text="backyard" runat="server" id="garageBackLockAction" OnClick="garageBackLockActionClick" OnClientClick="toggleItem();" /></small> |
+                                <small><asp:LinkButton Text="tack room" runat="server" id="garageInsideLockAction" OnClick="garageInsideLockActionClick" OnClientClick="toggleItem();" /></small>
                             </td>
                         </tr>
                         <tr>
@@ -41,9 +51,9 @@
                             <td style="padding-right: 13px"><small>garage: </small></td>
                             <td>
                                 <small>
-                                    <asp:LinkButton Text="north" runat="server" id="garageDoorNorthAction" OnClick="garageDoorNorthAction_Click" /> | 
-                                    <asp:LinkButton Text="center" runat="server" id="garageDoorCenterAction" OnClick="garageDoorCenterAction_Click" /> | 
-                                    <asp:LinkButton Text="south" runat="server" id="garageDoorSouthAction" OnClick="garageDoorSouthAction_Click" />
+                                    <asp:LinkButton Text="north" runat="server" id="garageDoorNorthAction" OnClick="garageDoorNorthAction_Click" OnClientClick="toggleItem();" /> | 
+                                    <asp:LinkButton Text="center" runat="server" id="garageDoorCenterAction" OnClick="garageDoorCenterAction_Click" OnClientClick="toggleItem();" /> | 
+                                    <asp:LinkButton Text="south" runat="server" id="garageDoorSouthAction" OnClick="garageDoorSouthAction_Click" OnClientClick="toggleItem();" />
                                 </small>
                             </td>
                         </tr>

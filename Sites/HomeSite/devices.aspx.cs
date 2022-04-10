@@ -175,8 +175,8 @@ public partial class devices : System.Web.UI.Page
         Device device = root.Devices.First(d => d.Name.Equals(deviceName));
 
         string url = "https://svcs.giesler.org:8443/HS3DeviceControl.aspx?by=label&id=" + device.Ref.ToString() + "&v=On";
-        HttpWebRequest deviceRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-        HttpWebResponse response = (HttpWebResponse)deviceRequest.GetResponse();
+        var deviceRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+        deviceRequest.GetResponse();
         Thread.Sleep(TimeSpan.FromSeconds(10));
 
         TryLoadData();
