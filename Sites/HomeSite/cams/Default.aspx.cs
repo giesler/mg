@@ -34,7 +34,7 @@ public partial class _Default : System.Web.UI.Page
         this.homeLink2.Visible = true;
 //        this.controlLink1.Visible = true;
 //        this.controlLink2.Visible = true;
-//        this.logLinkSeperator0.Visible = true;
+        this.logLinkSeperator0.Visible = !mobile;
 //        this.logLinkSeperator4.Visible = true;
         this.logLinkSeperator5.Visible = true;
         this.cam = "gdw";

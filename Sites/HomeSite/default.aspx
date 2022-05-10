@@ -32,7 +32,8 @@
     <div class="headerLink" style="padding: 4px; border-bottom-color: silver;">
         <a href="/" style="color: deepskyblue">home</a> |
         <a href="/cams/">cams</a> | 
-        <a href="/services.aspx">services</a>
+        <a href="/services.aspx">services</a> |
+        <a href="/who/">who</a>
     </div>
     <div style="clear: both; background-color: black;">
         <a class="smallthumb" href="/cams/?c=gdw" target="_blank">

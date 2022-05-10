@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "QSS": {
+      "commandName": "Project",
+      "commandLineArgs": "/p"
+    }
+  }
+}

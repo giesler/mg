@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
@@ -72,26 +73,10 @@
     <Content Include="DevicePower.svc" />
     <None Include="Properties\PublishProfiles\hs2 - svcs.ms2n.net.pubxml" />
     <None Include="Properties\PublishProfiles\server0.pubxml" />
-    <None Include="Service References\CamData\camdata.disco" />
-    <None Include="Service References\CamData\configuration91.svcinfo" />
-    <None Include="Service References\CamData\configuration.svcinfo" />
     <Content Include="getimg.aspx" />
-    <Content Include="getvid.aspx" />
     <Content Include="HomeSeerStatus.aspx" />
     <Content Include="HS3DeviceControl.aspx" />
-    <Content Include="Service References\CamData\HomeServices.CamData.LogItem.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\CamData\HomeServices.CamData.PreviousAndNextLogItems.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\CamData\HomeServices.CamData.VideoItem.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\CamData\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <Content Include="netwho.aspx" />
     <Content Include="Sonos.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -105,13 +90,6 @@
     </Compile>
     <Compile Include="getimg.aspx.designer.cs">
       <DependentUpon>getimg.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="getvid.aspx.cs">
-      <DependentUpon>getvid.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="getvid.aspx.designer.cs">
-      <DependentUpon>getvid.aspx</DependentUpon>
     </Compile>
     <Compile Include="HomeSeerStatus.aspx.cs">
       <DependentUpon>HomeSeerStatus.aspx</DependentUpon>
@@ -129,27 +107,19 @@
     </Compile>
     <Compile Include="IDevicePower.cs" />
     <Compile Include="ISonos.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\CamData\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <Compile Include="netwho.aspx.cs">
+      <DependentUpon>netwho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="netwho.aspx.designer.cs">
+      <DependentUpon>netwho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sonos.svc.cs">
       <DependentUpon>Sonos.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CamData\camdata.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CamData\camdata1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CamData\camdata2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CamData\CameraDataService.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -162,12 +132,6 @@
       <Project>{01f4c656-be28-4241-beeb-42457c1a5dd1}</Project>
       <Name>HomeControl</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CamData\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

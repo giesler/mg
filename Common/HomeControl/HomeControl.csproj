@@ -13,10 +13,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Sites\ControlSite\Bin\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>

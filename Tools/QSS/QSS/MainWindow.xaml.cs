@@ -1,21 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using System.Windows.Documents;
-using System.Collections.Generic;
-using System.Windows.Input;
-using System.Linq;
-using System.Diagnostics;
-using System.Windows.Threading;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Windows.Media;
-using System.Net;
-using System.Text;
-using System.Xml.Linq;
-using System.Web;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace msn2.net
 {
@@ -48,13 +42,7 @@ namespace msn2.net
         public MainWindow(string[] args)
         {
             InitializeComponent();
-
-            this.Path = @"\\server0\Plex\MSN2";
-            //this.Path = @"d:\localdata\xm";
-            this.Path = @"d:\onedrive\pictures\store";
-            this.Path = @"c:\pictures";
-            this.Path = @"c:\nr";
-
+            
             foreach (string arg in args)
             {
                 if (arg.StartsWith("/p:"))
@@ -62,6 +50,8 @@ namespace msn2.net
                     this.Path = arg.Substring(3);
                 }
             }
+
+            this.Path = @"c:\xmp";
 
             if (!Directory.Exists(this.Path))
             {
@@ -75,8 +65,6 @@ namespace msn2.net
                     }
                 }
             }
-
-            Trace.WriteLine("Using path " + this.Path);
 
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
             ThreadPool.QueueUserWorkItem(this.LoadWeatherData, null);
@@ -215,7 +203,7 @@ namespace msn2.net
             this.insideMinDecimal.Text = (insideMinF % 1.0 * 10.0).ToString("0");
             this.insideHumidity.Text = data.DashboardData.Humidity.ToString();
 
-            string address = string.Format("https://cam2.ms2n.net:8443/getimg.aspx?c=gdw&h=64&ts={0}", DateTime.Now.ToString("yymmddhhmmsstt"));
+            string address = string.Format("https://svcs.giesler.org:8443/getimg.aspx?c=gdw&h=64&ts={0}", DateTime.Now.ToString("yymmddhhmmsstt"));
 
 //            var camUri = new Uri("https://cams.ms2n.net/getimg.aspx?c=gdw&h=64&id=qss&ts=" + new Random().Next(1000000).ToString("00000000"));
 //            this.outsideDriveway.Source =  new Uri(address);
@@ -536,12 +524,15 @@ namespace msn2.net
             catch (Exception ex)
             {
                 this.info.Content = "Error loading " + uri.ToString() + ": " + ex.Message;
+                Trace.WriteLine($"Unable to load {uri} - {ex}");
             }
         }
 
         protected override void OnKeyUp(System.Windows.Input.KeyEventArgs e)
         {
             base.OnKeyUp(e);
+
+            Trace.WriteLine($"OnKeyUp: {e.Key} - loading {this.loadingImage}");
 
             if (e.Key == System.Windows.Input.Key.Escape)
             {
@@ -678,11 +669,14 @@ namespace msn2.net
             {
                 try
                 {
+                    Trace.WriteLine($"Waiting to delete {sender}");
                     Thread.Sleep(5000);
                     File.Delete(sender.ToString());
+                    Trace.WriteLine($"Deleted {sender}");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Trace.WriteLine($"Failed to delete {sender}: {e}");
                 }
             }
         }

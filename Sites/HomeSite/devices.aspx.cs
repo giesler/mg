@@ -24,9 +24,7 @@ public partial class devices : System.Web.UI.Page
             {
                 Response.Redirect("https://home.giesler.org/login/?r=https://home.giesler.org/");
             }
-        }
-
-        
+        }      
 
         try
         {

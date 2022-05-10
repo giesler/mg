@@ -70,7 +70,7 @@ namespace msn2.net
             req.Method = "GET";
             req.Proxy = null;
 //            req.ContentType = "application/json";
-            req.UserAgent = "(MS2N Development, giesler@live.com)";
+            req.UserAgent = "(Giesler Development, giesler@live.com)";
             req.Accept = "application/ld+json";
 
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
